@@ -373,3 +373,11 @@ body {
   border-color: #ccc;
   padding:auto;
 }
+
+a[aria-expanded=true] .glyphicon-chevron-right {
+   display: none;
+}
+a .glyphicon-chevron-down,
+a[aria-expanded=false] .glyphicon-chevron-down {
+   display: none;
+}

@@ -16,7 +16,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#subcategories-checkboxes">Add Subcategory</a>
+              <a data-toggle="collapse" href="#subcategories-checkboxes">
+                Add Subcategory
+                <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                <i class="glyphicon glyphicon-chevron-down pull-right"></i>
+              </a>
             </h4>
           </div>
           <div id="subcategories-checkboxes" class="panel-collapse collapse">
@@ -34,6 +38,7 @@
             </div> <!-- panel-body -->
           </div> <!-- subcategories-checkbox -->
         </div> <!-- panel-default -->
+        <%= render :partial => "articles/articlefaq" %>
       </div> <!-- panel-group -->
     </div> <!-- col-md-3 -->
   </div> <!-- row -->

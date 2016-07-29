@@ -39,7 +39,7 @@ $(document).ready(function(){
   	  "Equation"
     ]
   });
-  
+
   //This is a temporary workaround for an issue with sir trevor.
   //The EquationTextBlock would ideally replace the text block
   //but the .st-block-replace button only appears when using the
@@ -51,14 +51,14 @@ $(document).ready(function(){
 	var $this = $(this);
 	$this.blur();
 	$this.removeAttr("contenteditable");
-	
+
 	//remove the class so this event handler is only called once per block
 	$this.removeClass("st-text-block'");
-	
+
 	//prompt user to select a block type
 	$this.parent().siblings(".st-block-replacer").click();
   });
-  
+
   $('.sir-trevor-form').submit(function(e) {
     //1. Stop the default submission from occuring. This is so we can inject
     //the necessary metadata information into the form.
