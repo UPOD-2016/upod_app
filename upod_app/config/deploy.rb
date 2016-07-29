@@ -12,7 +12,7 @@ require 'mina/git'
 
 set :domain, 'hopper.wlu.ca'
 set :deploy_to, '/home/upod'
-set :repository, 'https://github.com/UPOD-2016/UPOD.git'
+set :repository, 'https://github.com/UPOD-2016/upod_app.git'
 set :branch, 'master'
 
 # For system-wide RVM install.
