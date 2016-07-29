@@ -140,7 +140,7 @@ GEM
     js-routes (1.2.7)
       railties (>= 3.2)
       sprockets-rails
-    json (1.8.3)
+    json (1.8.2)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -292,6 +292,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   js-routes
+  json (= 1.8.2)
   mina
   mini_magick
   mysql2 (~> 0.3.18)
