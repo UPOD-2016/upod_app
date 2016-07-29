@@ -1,3 +1,4 @@
+<% title "#{@subcategory.name}" %>
 <div class="container">
   <div class="jumbotron">
     <h2><%= @subcategory.name %></h2>
@@ -11,7 +12,7 @@
 	<% @subcategory.articles.each do |article| %>
 	<div class="col-sm-4" style="padding:10px;" >
 		<h4><strong>
-		<%= link_to article.title, article %>     
+		<%= link_to article.title, article %>
 		</strong></h4>
 		<hr>
 	</div>
@@ -19,4 +20,3 @@
 
   </div>
 </div>
-
