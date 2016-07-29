@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
     SirTrevor.Blocks.Diagram = (function() {
 		var $inputs, $code_area, $caption, $preview_button;
 		var $preview_area, $preview_frame, $preview_caption;

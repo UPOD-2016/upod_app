@@ -1,7 +1,5 @@
 
-$(document).on('turbolinks:load', function() {
-
-
+$(document).ready(function() {
     SirTrevor.Blocks.EquationText = (function() {
 
 		var $text_area;
@@ -31,7 +29,7 @@ $(document).on('turbolinks:load', function() {
 			},
 
             editorHTML: function() {
-                return "<div class='equation-text-block' contenteditable='true'></div>";	
+                return "<div class='equation-text-block' contenteditable='true'></div><button type='button' style='margin-top:5px'>Done</button>";	
             },
 
             onBlockRender: function() {

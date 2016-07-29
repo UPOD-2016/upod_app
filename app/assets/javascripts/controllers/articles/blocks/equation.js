@@ -1,6 +1,6 @@
 // Equation block
 
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
 
 		//Class encapsulating a set of inputs for entering in new variables and their description
 		var VariableInputField = function(container){
