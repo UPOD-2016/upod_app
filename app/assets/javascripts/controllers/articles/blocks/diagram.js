@@ -33,11 +33,16 @@ $(document).ready(function() {
 
             editorHTML: function() {
 			   return "<div class='st-svg-inputs'> \
-					<p>Enter javascript, css, and html:</p> \
-					<textarea class='st-svg-code' contenteditable='true' style='border:solid;width:100%'></textarea> \
-					<span>Add a caption:</span><input type='text' class='st-svg-caption'> \
+					<div class='form-group'> \
+  						<label for='comment'>Enter javascript, css, and html:</label> \
+  						<textarea class='st-svg-code form-control' contenteditable='true' rows='5' id='comment'></textarea> \
+					</div> \
+					<div class='form-group'> \
+  						<label for='usr'>Add a caption:</label> \
+  						<input type='text' class='st-svg-caption form-control' id='usr'> \
+					</div> \
 				</div> \
-				<button type='button' class='st-preview-button'>Preview</button> \
+				<button type='button' class='btn btn-primary'>Preview</button> \
 				<div class='st-preview' style='display:none'> \
 					<iframe class='st-preview-content' height='580' width='100%'></iframe> \
 					<p class='st-preview-caption'></p> \
