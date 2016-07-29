@@ -20,10 +20,14 @@ class Image < ActiveRecord::Base
 
   #validates :body, presence: true
 
-  def self.create_from_filepath(filepath)
+  def self.create_from_file(file)
     image = Image.new
-    image.body = filepath
+    image.body = file
     image.save!
     image
+  end
+
+  def self.md5_from_file(file)
+    Digest::MD5.hexdigest(file)
   end
 end
