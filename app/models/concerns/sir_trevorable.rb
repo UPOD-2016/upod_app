@@ -2,8 +2,8 @@ module SirTrevorable
   extend ActiveSupport::Concern
   included do
     def update_from_sir_trevor!(sir_trevor_content)
-      article.categorizations.destroy_all!
-      article.blocks.destroy_all!
+      self.categorizations.destroy_all!
+      self.blocks.destroy_all!
 
       json = JSON.parse(sir_trevor_content)
       meta = json['meta']
@@ -19,12 +19,12 @@ module SirTrevorable
     end
 
     def update_metadata_from_sir_trevor(meta)
-      article.title = meta['title'] || article.title
+      self.title = meta['title'] || self.title
       meta['subcategories'].each do |subcategory_id|
-        article.categorizations.create(subcategory_id: subcategory_id)
+        self.categorizations.create(subcategory_id: subcategory_id)
       end
 
-      return article.title.present?
+      return self.title.present?
     end
 
     def create_block_from_sir_trevor(block)

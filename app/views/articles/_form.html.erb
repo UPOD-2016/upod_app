@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
       <form class="additional-sir-trevor-form">
         <div class="form-group">
           <strong><%= text_field_tag :title, article.try(:title),class: 'form-control input-lg', placeholder: 'Enter Article Title Here' %></strong>
@@ -11,7 +11,7 @@
         <%= submit_tag 'Save Article', class: 'btn btn-success btn-block' %>
       <% end %>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="panel-group">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -31,10 +31,10 @@
                   </div>
                 <% end %>
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            </div> <!-- panel-body -->
+          </div> <!-- subcategories-checkbox -->
+        </div> <!-- panel-default -->
+      </div> <!-- panel-group -->
+    </div> <!-- col-md-3 -->
+  </div> <!-- row -->
+</div> <!-- container -->
