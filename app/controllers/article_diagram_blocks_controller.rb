@@ -10,6 +10,6 @@ class ArticleDiagramBlocksController < ApplicationController
    private
     # Use callbacks to share common setup or constraints between actions.
     def set_article_diagram_block
-      @article = ArticleDiagramBlock.find(params[:id])
+      @article_diagram_block = ArticleDiagramBlock.find(params[:id])
     end
 end
