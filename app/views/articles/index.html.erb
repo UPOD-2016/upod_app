@@ -1,27 +1,60 @@
 <% title "Articles" %>
-<p id="notice"><%= notice %></p>
+<p id="notice">
+	<%= notice %>
+</p>
 
-
-
-<div class="container">
-	<h1 class="text-center">Listing Articles</h1>
-	<hr>
-	<% @categories.each do |category| %>
-	  	<div class="col-md-2">
-			<div>
-				<h4><strong><%= link_to category.name, category %></strong></h4>
-				<hr>
-				<% category.subcategories.each do |subcategory| %>
-					<h5><strong><%= link_to subcategory.name, subcategory %></strong></h5>
-					<% subcategory.articles.each do |article| %>
-						<h6><%= link_to article.title, article %></h6>
-				    	<% end %>
-					<hr>
-				<% end %>
-			</div>
+<!-
+		The following lines check to see if there is a search query.  If there is
+		than search results will be displayed.  If there isn't a query than a list
+		of categories will be shown instead
+-->
+<% if params[:q].present? || params[:filter].present? %>
+	<h1 class="text-center">Search Results</h1>
+	<% if @suggestion != "" && @suggestion != [] %>
+		<h4>
+			Did you mean: <%= @suggestion %>
+		</h4>
+	<% end %>
+	<% @articles.each do |article| %>
+		<div style="padding: 20px; margin-left: 10%">
+			<h3>
+				<%= link_to article.title, article %>
+			</h3>
 		</div>
 	<% end %>
-</div>
+<% else %>
+	<div class="container">
+		<h1 class="text-center">
+			Listing Articles
+		</h1>
+		<hr>
+		<% @categories.each do |category| %>
+			<div class="col-md-2">
+				<div>
+					<h4>
+						<strong>
+							<%= link_to category.name, category %>
+						</strong>
+					</h4>
+					<hr>
+					<% category.subcategories.each do |subcategory| %>
+						<h5>
+							<strong>
+								<%= link_to subcategory.name, subcategory %>
+							</strong>
+						</h5>
+						<% subcategory.articles.each do |article| %>
+							<h6>
+								<%= link_to article.title, article %>
+							</h6>
+						<% end %>
+						<hr>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% end %>
 <br>
 
 <%= link_to 'New Article', new_article_path %>
