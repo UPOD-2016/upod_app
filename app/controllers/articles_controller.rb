@@ -37,7 +37,6 @@ class ArticlesController < ApplicationController
     # GET /articles/new
     def new
         @article = Article.new
-        @test = "hello"
     end
 
     # GET /articles/1/edit
