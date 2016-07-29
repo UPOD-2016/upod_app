@@ -25,7 +25,7 @@ puts "Starting to Seed Database. This takes a minute.".yellow
 puts "================================================".yellow
 puts "Removing current entries in database".blue
 
-[ArticleBlock, Subcategory, Categorization, EquationBlockVariable, Image,
+[ArticleBlock, Subcategory, Categorization, Image,
   Category, Article, Contributor, User].map(&:destroy_all)
 
 puts ""
