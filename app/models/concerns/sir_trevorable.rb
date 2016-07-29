@@ -48,25 +48,26 @@ module SirTrevorable
             variable.self_equation_block_id = equation_block.id
             variable.save!
           end
-
-          when :diagram
-          self.create_diagram_block(code: block['data']['code'], caption: block['data']['caption'])
         end
-      end
 
-      def to_sir_trevor
-        {data: self.blocks.collect { |block| block.specific.as_json } }.to_json
+      when :diagram
+        self.create_diagram_block(code: block['data']['code'], caption: block['data']['caption'])
       end
     end
 
-    module ClassMethods
-      # Creates the Articles blocks using sir trevor
-      #
-      # @todo Document method
-      # @todo complete image handling
-      def create_from_sir_trevor(sir_trevor_content)
-        article = Article.create
-        article.update_from_sir_trevor!(sir_trevor_content)
-      end
+    def to_sir_trevor
+      {data: self.blocks.collect { |block| block.specific.as_json } }.to_json
     end
   end
+
+  module ClassMethods
+    # Creates the Articles blocks using sir trevor
+    #
+    # @todo Document method
+    # @todo complete image handling
+    def create_from_sir_trevor(sir_trevor_content)
+      article = Article.create
+      article.update_from_sir_trevor!(sir_trevor_content)
+    end
+  end
+end
