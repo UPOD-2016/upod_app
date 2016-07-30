@@ -1,8 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-$(document).ready(function() {
-
-
+$(function() {
   var arrowWidth = 30;
 
   $.fn.resizeselect = function(settings) {
@@ -31,4 +29,11 @@ $(document).ready(function() {
 
   // run by default
   $("select.resizeselect").resizeselect();
+
 });
+
+//FINALLY FIGURED IT OUT HAHAHAHAHAHAHAHAHAH
+// 8-))
+$(document).on("turbolinks:load", function(){
+  return $("select.resizeselect").resizeselect();
+})
