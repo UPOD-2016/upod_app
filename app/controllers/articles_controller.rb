@@ -7,26 +7,17 @@ class ArticlesController < ApplicationController
     # Article.reindex
 
     search_options = {
-      fields: ["name^10","title^5","body^5","label^1"],
+      fields: ["title^5","body^5","label^1"],
       match: :word_start,
       suggest: true,
       misspellings: {below: 2},
-      order: {_score: :desc}
-      #where: {name: params[:filter].present? ? params[:filter] : "*"}
+      order: {_score: :desc},
     }
 
-    if params[:filter].present?
-      search_options[:where] = {name: /^#{params[:filter]} +./}
-  end
 
-  if params[:q].present?
+    search_options[:where] = {category: params[:cat_id] } if params[:cat_id].present?
     @articles = Article.search params[:q], search_options
-    @suggestion = @articles.suggestions
-  else
-    @articles = Article.includes(:categorizations).all
-    @suggestion = []
-  end
-
+    @suggestion = @articles.suggestions if params[:q].present?
   end
 
   # GET /articles/1

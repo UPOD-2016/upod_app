@@ -9,7 +9,7 @@
 # It was then modified to work on page load and with turbolinks. Redundant fn calls were taken out.
 # RM
 
-$ ->
+$ -> # This lines is equivalant to $(document).ready()
   $.fn.resizeselect = (settings) -> # create an anonymous method to add to a class
     @each -> #step through each select element on page
       $(this).change(-> # create an anonymous method to change a class
@@ -25,7 +25,4 @@ $ ->
       return
   $('select.resizeselect').resizeselect() # call add method
   return
-
-#update each time page is changed
-$(document).ready ->
-  $('select.resizeselect').resizeselect()
+return  

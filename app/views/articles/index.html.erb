@@ -8,9 +8,9 @@
 		than search results will be displayed.  If there isn't a query than a list
 		of categories will be shown instead
 -->
-<% if params[:q].present? || params[:filter].present? %>
+<% if params[:q].present? || params[:cat_id].present? %>
 	<h1 class="text-center">Search Results</h1>
-	<% if @suggestion != "" && @suggestion != [] %>
+	<% if @suggestion != "" && @suggestion != nil %>
 		<h4>
 			Did you mean: <%= @suggestion %>
 		</h4>

@@ -43,9 +43,10 @@ class Article < ActiveRecord::Base
   def search_data
     {
         title: title,
-        name: blocks.map { |block| block.specific.body if block.specific.respond_to?(:name)}.as_json,
+        name: blocks.map { |block| block.specific.name if block.specific.respond_to?(:name)}.as_json,
         body: blocks.map { |block| block.specific.body if block.specific.respond_to?(:body)}.as_json,
         label: blocks.map { |block| block.specific.label if block.specific.respond_to?(:label)}.as_json,
+        category: subcategories.map(&:category_id),
         conversions: searches.group("query").count
     }
   end
