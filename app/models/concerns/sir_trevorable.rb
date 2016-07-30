@@ -46,7 +46,7 @@ module SirTrevorable
         if variables != nil
           variables.keys.each do |key|
             variable = EquationBlockVariable.new(variable: variables[key]["variable"],description: variables[key]["description"])
-            variable.self_equation_block_id = equation_block.id
+            variable.article_equation_block_id = equation_block.id
             variable.save!
           end
         end
