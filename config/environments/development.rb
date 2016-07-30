@@ -41,4 +41,5 @@ Rails.application.configure do
 
   # Allow vagrant to connect to console
   config.web_console.whitelisted_ips = '10.0.2.2'
+
 end

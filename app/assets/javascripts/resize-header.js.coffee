@@ -27,5 +27,5 @@ $ ->
   return
 
 #update each time page is changed
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
   $('select.resizeselect').resizeselect()

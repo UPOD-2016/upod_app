@@ -26,14 +26,13 @@ end
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'active_record-acts_as'
 gem 'acts_as_list'
 gem 'annotate'
 gem 'bootstrap-sass'
-
+gem 'goldiloader'
 # Required for sir trevor
 source 'https://rails-assets.org' do
   gem 'rails-assets-underscore'
@@ -49,7 +48,7 @@ gem "bourbon"
 gem 'carrierwave'
 gem "mini_magick"
 gem 'quiet_assets'
-gem 'jquery-turbolinks'
+
 #Use YARD for documentation generation
 gem "yard"
 
@@ -57,7 +56,7 @@ gem "yard"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
+  gem 'rack-mini-profiler'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

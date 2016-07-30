@@ -1,7 +1,7 @@
 //= require includes/MathJaxConfig
 //= require includes/MathJax
 //= require includes/sir-trevor
-//= require ./blocks/equation_text_block.js
+// require ./blocks/equation_text_block.js -- commented out for now
 //= require ./blocks/equation.js
 //= require ./blocks/diagram.js
 
@@ -23,16 +23,16 @@ $(document).ready(function(){
   SirTrevor.config.debug = true;
   SirTrevor.config.scribeDebug = true;
   SirTrevor.config.language = "en";
-  SirTrevor.Blocks.Heading.prototype.toolbarEnabled = false;
+  SirTrevor.Blocks.Heading.prototype.toolbarEnabled = true;
   // SirTrevor.Blocks.Quote.prototype.toolbarEnabled = true;
-  SirTrevor.Blocks.Text.prototype.toolbarEnabled = false;
+  SirTrevor.Blocks.Text.prototype.toolbarEnabled = true;
   window.editor = new SirTrevor.Editor({
     el: $(".js-sir-trevor-instance").get(0),
     blockTypes: [
+  	  "Heading",
+      // "equation_text",
       "Text",
-	  "Heading",
-	  "List",
-	  "EquationText",
+  	  "List",
       "Image",
       "Video",
   	  "Diagram",
@@ -47,17 +47,17 @@ $(document).ready(function(){
   //To get around this, the default text blocks are still rendered
   //but the user is unable to interact with it and is instead prompted
   //to select another type of block to use, with the "Text" option being an EquationTextBlock
-  $('body').delegate('.st-text-block','mouseover',function(){
-	var $this = $(this);
-	$this.blur();
-	$this.removeAttr("contenteditable");
+ //  $('body').delegate('.st-text-block','mouseover',function(){
+	// var $this = $(this);
+	// $this.blur();
+	// $this.removeAttr("contenteditable");
 
-	//remove the class so this event handler is only called once per block
-	$this.removeClass("st-text-block'");
+	// //remove the class so this event handler is only called once per block
+	// $this.removeClass("st-text-block'");
 
-	//prompt user to select a block type
-	$this.parent().siblings(".st-block-replacer").click();
-  });
+	// //prompt user to select a block type
+	// $this.parent().siblings(".st-block-replacer").click();
+ //  });
 
   $('.sir-trevor-form').submit(function(e) {
     //1. Stop the default submission from occuring. This is so we can inject

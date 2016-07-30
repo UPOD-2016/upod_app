@@ -20,12 +20,11 @@ module SirTrevorable
     end
 
     def update_metadata_from_sir_trevor(meta)
-      self.title = meta['title'] || self.title
+      self.update_columns(title: meta['title'] || self.title)
       meta['subcategories'].each do |subcategory_id|
         self.categorizations.create(subcategory_id: subcategory_id)
       end
-
-      return self.title.present?
+      return self.valid?
     end
 
     def create_block_from_sir_trevor(block)
@@ -67,7 +66,8 @@ module SirTrevorable
     # @todo Document method
     # @todo complete image handling
     def create_from_sir_trevor(sir_trevor_content)
-      article = Article.create
+      article = Article.new
+      article.save!(validate: false)
       article.update_from_sir_trevor!(sir_trevor_content)
       article
     end

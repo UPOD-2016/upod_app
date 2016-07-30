@@ -28,6 +28,6 @@ class Image < ActiveRecord::Base
   end
 
   def self.md5_from_file(file)
-    Digest::MD5.hexdigest(file)
+    Digest::MD5.hexdigest(file.read.to_s)
   end
 end

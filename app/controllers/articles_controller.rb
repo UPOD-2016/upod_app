@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
   # GET /articles
   def index
-    Article.reindex
+    # Article.reindex
 
     search_options = {
       fields: ["name^10","title^5","body^5","label^1"],
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
     @articles = Article.search params[:q], search_options
     @suggestion = @articles.suggestions
   else
-    @articles = Article.all
+    @articles = Article.includes(:categorizations).all
     @suggestion = []
   end
 

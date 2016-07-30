@@ -70,13 +70,11 @@ class SirTrevorImageUploader< CarrierWave::Uploader::Base
   end
 
   def filename
-     "#{secure_token}.#{file.extension}" if original_filename.present?
+     "#{secure_token()}.#{file.extension}" if original_filename.present?
   end
 
   protected
     def secure_token()
-      var = :"@#{mounted_as}_secure_token"
-      model.instance_variable_get(var) or
-        model.instance_variable_set(var, Digest::MD5.hexdigest(model.send(mounted_as).read.to_s))
+      model.body_secure_token ||= Digest::MD5.hexdigest(model.send(mounted_as).read.to_s)
     end
 end

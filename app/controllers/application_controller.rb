@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   private
   def load_categories
-      @categories ||= Category.all
+      @categories ||= Category.all.includes(:subcategories)
   end
 
 end
