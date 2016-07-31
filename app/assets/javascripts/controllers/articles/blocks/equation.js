@@ -1,8 +1,18 @@
+/*
+ * SirTrevor implementation of the equation block.
+ * This block allows user to insert block equations into articles
+ * which stand-out more than in-line equations in EquationText blocks.
+ * Users can optionally add descriptions of specific variables in the equation. 
+ * author: Steven Swartz
+*/
+
 //= require includes/sir-trevor
 
 $(document).ready(function() {
 
-		//Class encapsulating a set of inputs for entering in new variables and their description
+		//Class encapsulating a set of inputs for entering in a new variable and its description
+		//When the inputs are changed by the user, this notifies all subscribers/observers that have
+		//Registered a callback with this instance.
 		var VariableInputField = function(container){
 			var variable, description;
 			var inputs;
@@ -68,17 +78,19 @@ $(document).ready(function() {
 			//add the inputs to targeted container and set inputs equal to the last input_template elements inserted
 			inputs = container.append(input_template).children().last();
 
-			//Update this variable's attributes when the user makes a change
+			//Update this variable's attributes when the user makes a change and notify subscribers
 			inputs.find("[name='variable']").change(function(){
 				variable = $(this).val();
 				notifyUpdate();
 			});
+			
+			//Update this variable's attributes when the user makes a change and notify subscribers
 			inputs.find("[name='description']").change(function(){
 				description = $(this).val();
 				notifyUpdate();
 			});
 
-
+			//User clicks the button to delete this object
 			inputs.find("button").click(function(e){
 				e.preventDefault();
 			   //let subscribers know that this object is going to be deleted
@@ -95,15 +107,23 @@ $(document).ready(function() {
 			//create element which indicates that mathjax knows contains math
 			var math_script = $("<script type='math/asciimath'>").text(equation);
 
-			//Queue these functions to be called when mathjax is ready
+			//Queue these callbacks to be called when MathJax has completed its current asynchronous tasks
 			MathJax.Hub.queue.Push(
+				
+				//insert the equation definition
 				function() {
 					$(elem).html(math_script);
 				},
+				
+				//Hide the element so that rendering looks cleaner
 				function() {
 					$(elem).css("visibility", "hidden");
 				},
+				
+				//Typeset the math
 				["Typeset", MathJax.Hub, elem],
+				
+				//Unhide the element upon completion
 				function() {
 					$(elem).css("visibility", "visible");
 				}
@@ -116,7 +136,7 @@ $(document).ready(function() {
 		//References to DOM elements in this equation block
 		var equation_preview, variable_preview, variable_inputs, label_preview, equation_input, label_input;
 
-		//Keep track of variable objects
+		//Keep track of variable objects associated with this equation
 		var variables = [];
 
         return SirTrevor.Block.extend({
@@ -199,8 +219,7 @@ $(document).ready(function() {
                 }.bind(this));
 
 				variable_preview = $(this.el).find(".equation-variables");
-				variable_inputs = $(this.el).find(".variable-inputs");
-
+				variable_inputs = $(this.el).find(".variable-inputs");s
 				//Call addVariable with access to functions available in this_block
 				$(this.el).find(".add-variables").click(function(){
 					this.addVariable();
@@ -221,13 +240,7 @@ $(document).ready(function() {
 				//appends a new set of inputs to variable_input_area where a variable can be defined
 				var variable_field = new VariableInputField(variable_inputs);
 
-				//store a reference to this var_obj
-				variables.push(variable_obj);
-
-				//update the data sent to the server
-				this.toData();
-
-				//Create the element to display the variable and append it to DOM
+				//Create the element to display the variable
 				var variable_preveiw_el = $('<p/>', {
 					'class':'equation-variable',
 					'style':'display:none',
@@ -240,6 +253,12 @@ $(document).ready(function() {
 					}
 				});
 
+				//store a reference to this var_obj
+				variables.push(variable_obj);
+
+				//update the data sent to the server
+				this.toData();
+				
 				//If variable/description parameters were sent then we load in the values to the preview and input area
 				if (variable && description){
 					variable_field.setVariable(variable);
@@ -289,11 +308,13 @@ $(document).ready(function() {
 				}.bind(this));
 			},
 
+			//Sets the equation in the view and updates data sent to server
 			setEquation: function(equation){
 				addMath(equation_preview[0], equation);
 				this.toData();
 			},
 
+			//Sets the label in the view and updates data sent to server
 			setLabel: function(label_text){
 			    label_preview.text(label_text);
 				this.toData();

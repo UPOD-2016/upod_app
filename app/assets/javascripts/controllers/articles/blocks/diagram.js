@@ -1,5 +1,15 @@
+/*
+ * SirTrevor implementation for the Diagram block.
+ * This is intended for inserting svg diagrams 
+ * into articles but it can also insert custom
+ * html, css, and javascript. The code entered 
+ * will be rendered in a sandboxed iframe which
+ * restricts the functionality of their javascript.
+ * 
+ * author: Steven Swartz
+*/
+
 //= require includes/sir-trevor
-//
 $(document).ready(function() {
     SirTrevor.Blocks.Diagram = (function() {
 		var $inputs, $code_area, $caption, $preview_button;

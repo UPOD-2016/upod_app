@@ -1,6 +1,9 @@
 # ArticleLinkBlock is a more specific {ArticleBlock}.
-# It contains an id, a source and a video id. ArticleLinkBlock acts as an article block
-# It inherits ArticleBlock's attributes, methods and validations.
+# It contains an id, a source and a video id. ArticleLinkBlock acts as an article block.
+# If more video formats are supported in the future, this class would be easier to maintain
+# if it was abstract and inherited by each video format. 
+# With only 2 video formats, inheritance would add unneeded complexity.
+#
 # @see ArticleBlock
 #
 # author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz

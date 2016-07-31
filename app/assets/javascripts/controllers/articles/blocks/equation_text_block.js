@@ -1,3 +1,10 @@
+/*
+ * This is a SirTrevor block for adding text and in-line MathJax expressions
+ * to articles. Text surrounded with back-ticks will be rendered by MathJax.
+ *
+ * author: Steven Swartz 
+*/
+
 //= require includes/sir-trevor
 $(document).ready(function() {
     SirTrevor.Blocks.EquationText = (function() {
@@ -29,14 +36,12 @@ $(document).ready(function() {
 			},
 
             editorHTML: function() {
-                return "<div class='equation-text-block' contenteditable='true'></div><button type='button' style='margin-top:5px'>Done</button>";
+                return "<div class='equation-text-block' contenteditable='true'></div><button type='button' class='btn btn-primary' style='margin-top:5px'>Done</button>";
             },
 
             onBlockRender: function() {
 				var this_block = this;
 				$text_area = $(this.el).find(".equation-text-block");
-
-
 
 				//Registers an equivalent of a "change" event listener to the contenteditable $text_area
 				//Code from http://stackoverflow.com/questions/1391278/contenteditable-change-events
@@ -54,7 +59,7 @@ $(document).ready(function() {
 				$text_area.on('blur paste', function() {
 					var $this = $(this);
 
-					//Check that the previously stored text is different after a paste/blur
+					//Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
 					if ($this.data('before') !== $this.text()) {
 						//update the current text in this element
 						$this.data('before', $this.text());

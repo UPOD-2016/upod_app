@@ -1,7 +1,11 @@
-# ArticleEquationBlock is a more specific {ArticleBlock}. ArticleEquationBlock acts as an article block
-# and it contains an equation (eg. E=mc^2) and a description of that equation.
+# ArticleEquationBlock is a more specific {ArticleBlock}. It represents
+# an equation which has many {EquationBlockVariable} which encapsulate
+# a mathematical expression with descriptions of variables that it includes.
+# 
 # It inherits ArticleBlock's attributes, methods and validations.
+#
 # @see ArticleBlock
+# @see EquationBlockVariables
 #
 # author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz (Implementation)
 #
