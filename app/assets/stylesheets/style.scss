@@ -373,7 +373,6 @@ body {
   border-color: #ccc;
   padding:auto;
 }
-<<<<<<< Updated upstream
 
 a[aria-expanded=true] .glyphicon-chevron-right {
    display: none;
@@ -382,9 +381,7 @@ a .glyphicon-chevron-down,
 a[aria-expanded=false] .glyphicon-chevron-down {
    display: none;
 }
-=======
 #articleFaqHeading {
-  // text-align: center;
   margin: auto;
   max-width: 900px;
   text-decoration: underline;
@@ -395,7 +392,6 @@ a[aria-expanded=false] .glyphicon-chevron-down {
 #articleFaqSubheading {
   margin: auto;
   max-width: 900px;
-  //text-align: center;
   font-size: 20px;
   line-height: 35px;
   color: #333;
@@ -405,4 +401,3 @@ a[aria-expanded=false] .glyphicon-chevron-down {
   max-width: 900px;
   font-size: 12px;
 }
->>>>>>> Stashed changes
