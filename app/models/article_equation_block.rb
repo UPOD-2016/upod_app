@@ -1,7 +1,7 @@
 # ArticleEquationBlock is a more specific {ArticleBlock}. It represents
 # an equation which has many {EquationBlockVariable} which encapsulate
 # a mathematical expression with descriptions of variables that it includes.
-# 
+#
 # It inherits ArticleBlock's attributes, methods and validations.
 #
 # @see ArticleBlock
@@ -24,7 +24,7 @@ class ArticleEquationBlock < ActiveRecord::Base
 
 # validates the length and presence of equation block and description
   validates :equation, presence: true, length: {maximum: 65535}
-  validates :label, length: {maximum: 255}
+  validates :label, length: {maximum: 255}, presence: true
 
   # Used by SirTrevor for editing this block
   def as_json
