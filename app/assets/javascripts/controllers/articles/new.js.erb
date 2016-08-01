@@ -4,11 +4,10 @@
  * author: Michael Roher (SirTrevor), Steven Swartz (MathJax)
 */
 
-
 //= require includes/MathJaxConfig
 //= require includes/MathJax
 //= require includes/sir-trevor
-// require ./blocks/equation_text_block.js -- commented out for now
+//= require ./blocks/equation_text_block.js 
 //= require ./blocks/equation.js
 //= require ./blocks/diagram.js
 
@@ -37,13 +36,13 @@ $(document).ready(function(){
     el: $(".js-sir-trevor-instance").get(0),
     blockTypes: [
   	  "Heading",
-      // "equation_text",
-      "Text",
+      "EquationText",
   	  "List",
       "Image",
       "Video",
   	  "Diagram",
-  	  "Equation"
+  	  "Equation",
+	  "Text",
     ]
   });
 
@@ -54,55 +53,66 @@ $(document).ready(function(){
   //To get around this, the default text blocks are still rendered
   //but the user is unable to interact with it and is instead prompted
   //to select another type of block to use, with the "Text" option being an EquationTextBlock
- //  $('body').delegate('.st-text-block','mouseover',function(){
-	// var $this = $(this);
-	// $this.blur();
-	// $this.removeAttr("contenteditable");
+  //and the default text block inaccessible.
+  $('body').delegate('.st-text-block','mouseover',function(){
+	var $this = $(this);
+	$this.blur();
+	$this.removeAttr("contenteditable");
 
-	// //remove the class so this event handler is only called once per block
-	// $this.removeClass("st-text-block'");
+	//remove the class so this event handler is only called once per block
+	$this.removeClass("st-text-block'");
 
-	// //prompt user to select a block type
-	// $this.parent().siblings(".st-block-replacer").click();
- //  });
+	//prompt user to select a block type
+	$this.parent().siblings(".st-block-replacer").click();
+  });
+  //Removes the default text icon from the list of blocks the user can click
+  $(SirTrevor.config.instances[0].blockControls.el.children).find("[data-type='text']").remove();
+  
 
   $('.sir-trevor-form').submit(function(e) {
     //1. Stop the default submission from occuring. This is so we can inject
     //the necessary metadata information into the form.
     e.preventDefault();
+	
+	//2. Only proceed if there are no errors 
+	//which occurs when no custom validators call setError
+	//and all fields of the st-required class are not empty
+	if (SirTrevor.onBeforeSubmit() > 0){
+		return;
+	}
 
-    //2. The textarea stores the JSON that is submitted to the server. So, our
+    //3. The textarea stores the JSON that is submitted to the server. So, our
     //first step is to find the textarea and store it in a variable. The additional
     //meta forms are exactly what they sound like - additional forms on the page that
     //are to be submitted with the sir trevor form.
     var $textarea = $(this).find('textarea.js-sir-trevor-instance');
     var $additionalMetaForms = $('.additional-sir-trevor-form');
 
-    //3. Parse the textarea's contents into a variable named json
+    //4. Parse the textarea's contents into a variable named json
     var json = JSON.parse($textarea.val());
 
-    //4. Here we start creating what we want on the server - a meta dictionary with
+    //5. Here we start creating what we want on the server - a meta dictionary with
     //a Title (String) and Categories (Array)
     json.meta = {};
 
-    //5. Grab the title and create the string.
+    //6. Grab the title and create the string.
     json.meta.title = $('#title').val();
 
-    //6. Find all selected subcategories
+    //7. Find all selected subcategories
     var $selectedSubcategories = $additionalMetaForms.find('input:checkbox:checked');
 
-    //7. Loop through them and return an array of them (note: they are stored as strings,
+    //8. Loop through them and return an array of them (note: they are stored as strings,
     //   and since Rails doesn't care, we don't care for now)
     json.meta.subcategories = $.map($selectedSubcategories, function(el) {
       return $(el).val();
     });
 
-    //8. Finally, we can convert the json object back into JSON and replace the textarea's contents
+    //9. Finally, we can convert the json object back into JSON and replace the textarea's contents
     //   with it. This is what's submitted to the server.
     $textarea.val(JSON.stringify(json));
-
-    //9. Resubmit to the server
-    //   Prevent an infinite loop by submitting through javascript, not jQuery
-    this.submit();
+   
+	//10. Resubmit to the server
+	//Prevent an infinite loop by submitting through javascript, not jQuery
+	this.submit();
   });
 });

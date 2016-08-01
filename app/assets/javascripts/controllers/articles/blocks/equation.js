@@ -133,12 +133,7 @@ $(document).ready(function() {
 
 
     SirTrevor.Blocks.Equation = (function() {
-		//References to DOM elements in this equation block
-		var equation_preview, variable_preview, variable_inputs, label_preview, equation_input, label_input;
-
-		//Keep track of variable objects associated with this equation
-		var variables = [];
-
+	
         return SirTrevor.Block.extend({
 
             type: "equation",
@@ -151,24 +146,25 @@ $(document).ready(function() {
             formatable: false,
             textable: false,
             paste_options: { html: null },
+			
 
 			//Extracts and sets data that will be sent to the server
 			toData: function(){
 				var objData = {};
-				objData.equation = equation_input.val();
-				objData.label = label_input.val();
-				objData.variables = $.extend({},variables) //maps [Object,Object] to {0:Object,1:Object}
+				objData.equation = this.equation_input.val();
+				objData.label = this.label_input.val();
+				objData.variables = $.extend({},this.variables) //maps [Object,Object] to {0:Object,1:Object}
 
 				this.setData(objData);
 			},
 
 			//Will populate the block/fields with pre-loaded data
 			setBlock: function(data){
-				equation_input.val(data.equation);
-				addMath(equation_preview[0],data.equation);
+				this.equation_input.val(data.equation);
+				addMath(this.equation_preview[0],data.equation);
 
-				label_input.val(data.label);
-				label_preview.text(data.label);
+				this.label_input.val(data.label);
+				this.label_preview.text(data.label);
 
 				var variables = data.variables;
 				for (i in Object.keys(variables)){
@@ -201,26 +197,29 @@ $(document).ready(function() {
 
             onBlockRender: function() {
                 var this_block = this;
+				
+				//stores objects representing variables of form {variable:text,description:text} to be sent to the server
+				this.variables = [];
 
-				//set-up equation input to update the MathJax preview when changed
-                equation_preview = $(this.el).find(".equation");
-                equation_preview.removeAttr("contenteditable");
-                equation_input = $(this.el).find(".st-equation-paste");
-                equation_input.on("change", function() {
-					this.setEquation(equation_input.val());
+				//Update the equation_preview when the user enters an equation into this block's equation_input
+                this.equation_preview = $(this.el).find(".equation");
+                this.equation_preview.removeAttr("contenteditable");
+				this.equation_input = $(this.el).find(".st-equation-paste");
+                this.equation_input.on("change", function() {
+					this.setEquation(this.equation_input.val());
                 }.bind(this));
 
 				//set-up label input to update the label in the preview when changed
-                label_preview = $(this.el).find(".equation-label");
-                label_input = $(this.el).find(".st-label-paste");
-                label_input.on("change", function() {
-					var label = label_input.val();
+                this.label_preview = $(this.el).find(".equation-label");
+                this.label_input = $(this.el).find(".st-label-paste");
+                this.label_input.on("change", function() {
+					var label = this.label_input.val();
 					this.setLabel(label);
                 }.bind(this));
 
-				variable_preview = $(this.el).find(".equation-variables");
-				variable_inputs = $(this.el).find(".variable-inputs");s
-				//Call addVariable with access to functions available in this_block
+				//Store references to the part of the block for adding/describing equation variables
+				this.variable_preview = $(this.el).find(".equation-variables");
+				this.variable_inputs = $(this.el).find(".variable-inputs");
 				$(this.el).find(".add-variables").click(function(){
 					this.addVariable();
 				}.bind(this));
@@ -238,7 +237,7 @@ $(document).ready(function() {
 				var variable_obj = {variable:variable,description:description};
 
 				//appends a new set of inputs to variable_input_area where a variable can be defined
-				var variable_field = new VariableInputField(variable_inputs);
+				var variable_field = new VariableInputField(this.variable_inputs);
 
 				//Create the element to display the variable
 				var variable_preveiw_el = $('<p/>', {
@@ -254,7 +253,7 @@ $(document).ready(function() {
 				});
 
 				//store a reference to this var_obj
-				variables.push(variable_obj);
+				this.variables.push(variable_obj);
 
 				//update the data sent to the server
 				this.toData();
@@ -270,7 +269,7 @@ $(document).ready(function() {
 				}
 
 				//Can now add variable elements to the DOM
-				variable_preveiw_el.appendTo(variable_preview);
+				variable_preveiw_el.appendTo(this.variable_preview);
 
 				//Called whenever the user changes the variable/description fields
 				variable_field.addUpdateCallback(function(){
@@ -297,10 +296,10 @@ $(document).ready(function() {
 					variable_preveiw_el.remove();
 
 					//user deleted the variable/description so we don't want to send it to the server
-					var index = variables.indexOf(variable_obj);
+					var index = this.variables.indexOf(variable_obj);
 					if (index != -1){
 						//remove this object from array
-						variables.splice(index,1);
+						this.variables.splice(index,1);
 						delete variable_obj;
 					}
 					//update the data sent to the server
@@ -310,13 +309,13 @@ $(document).ready(function() {
 
 			//Sets the equation in the view and updates data sent to server
 			setEquation: function(equation){
-				addMath(equation_preview[0], equation);
+				addMath(this.equation_preview[0], equation);
 				this.toData();
 			},
 
 			//Sets the label in the view and updates data sent to server
 			setLabel: function(label_text){
-			    label_preview.text(label_text);
+			    this.label_preview.text(label_text);
 				this.toData();
 			},
 

@@ -12,10 +12,7 @@
 //= require includes/sir-trevor
 $(document).ready(function() {
     SirTrevor.Blocks.Diagram = (function() {
-		var $inputs, $code_area, $caption, $preview_button;
-		var $preview_area, $preview_frame, $preview_caption;
-		var block_data = { code: null, caption: null };
-
+	
         return SirTrevor.Block.extend({
 
             type: "diagram",
@@ -28,7 +25,7 @@ $(document).ready(function() {
 			validations: ["codeMustNotBeEmpty"],
 
 			codeMustNotBeEmpty: function(){
-				var code = $code_area[0]; //need to send setError a plain js element
+				var code = this.$code_area[0]; //need to send setError a plain js element
 				if (code.value === ""){
 					this.setError(code,"Code area cannot be empty");
 				}
@@ -38,8 +35,8 @@ $(document).ready(function() {
 			//Updates the object sent to the server
 			toData: function(){
 				var dataObj = {}
-				dataObj.code = $code_area.val();
-				dataObj.caption = $caption.val();
+				dataObj.code = this.$code_area.val();
+				dataObj.caption = this.$caption.val();
 				this.setData(dataObj);
 			},
 
@@ -71,23 +68,23 @@ $(document).ready(function() {
 				var this_block = this;
 
 				//User inputs (code_area and caption)
-				$inputs = $(this.el).find(".st-svg-inputs");
+				this.$inputs = $(this.el).find(".st-svg-inputs");
 
 				//Where user enters the diagram code
-				$code_area = $(this.el).find(".st-svg-code");
+				this.$code_area = $(this.el).find(".st-svg-code");
 
 				//Where user enters the caption for diagram
-				$caption = $(this.el).find(".st-svg-caption");
+				this.$caption = $(this.el).find(".st-svg-caption");
 
 				//See preview of diagram
-				$preview_button = $(this.el).find(".st-preview-button");
+				this.$preview_button = $(this.el).find(".st-preview-button");
 
 				//Container for diagram preview
-				$preview_area = $(this.el).find(".st-preview");
+				this.$preview_area = $(this.el).find(".st-preview");
 
 				//Iframe the diagram is inserted into
-				$preview_frame = $(this.el).find(".st-preview-content");
-				$preview_caption = $(this.el).find(".st-preview-caption");
+				this.$preview_frame = $(this.el).find(".st-preview-content");
+				this.$preview_caption = $(this.el).find(".st-preview-caption");
 
 				//Check if data has been loaded by sir trevor using the loadData method
 				var preloaded_data = this.getBlockData();
@@ -97,30 +94,30 @@ $(document).ready(function() {
 				}
 
 				//User inputs diagram code, update the iframe preview
-				$code_area.on("change",function(){
+				this.$code_area.on("change",function(){
 					var code = $(this).val();
-					this_block.setDiagram(code,$preview_frame[0]);
+					this_block.setDiagram(code,this_block.$preview_frame[0]);
 				});
 
 				//User inputs a caption, update the caption in the preview
-				$caption.on("change",function(){
+				this.$caption.on("change",function(){
 					var caption = $(this).val()
 					this_block.setCaption(caption);
 				});
 
-				$preview_button.on("click",function(e){
+				this.$preview_button.on("click",function(e){
 					e.preventDefault();
 					//Show preview of code and hide inputs
-					if ($preview_area.css("display") == "none"){
+					if (this_block.$preview_area.css("display") == "none"){
 						//Display the preview button and hide the input fields
-						$preview_area.css("display","block");
-						$inputs.css("display","none");
+						this_block.$preview_area.css("display","block");
+						this_block.$inputs.css("display","none");
 						$(this).text("Edit");
 					}
 					//Hide preview and show inputs
 					else {
-						$preview_area.css("display","none");
-						$inputs.css("display","block");
+						this_block.$preview_area.css("display","none");
+						this_block.$inputs.css("display","block");
 						$(this).text("Preview");
 					}
 				});
@@ -129,15 +126,15 @@ $(document).ready(function() {
 
 			//used to initialize block with preloaded-data
 			setBlock: function(code,caption_text){
-				$code_area.val(code);
+				this.$code_area.val(code);
 				this.setDiagram(code);
-				$caption.val(caption_text);
+				this.$caption.val(caption_text);
 				this.setCaption(caption_text);
 			},
 
 			setDiagram: function(html){
 				//write the html into the iframe preview
-				var doc = $preview_frame[0].contentWindow.document;
+				var doc = this.$preview_frame[0].contentWindow.document;
 				doc.open();
 				doc.write(html);
 				doc.close();
@@ -148,7 +145,7 @@ $(document).ready(function() {
 
 			setCaption: function(caption_text){
 				//add a caption below the diagram
-				$preview_caption.text(caption_text);
+				this.$preview_caption.text(caption_text);
 				//Update object sent to server
 				this.toData();
 			}

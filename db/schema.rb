@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725234750) do
+ActiveRecord::Schema.define(version: 20160801021046) do
 
   create_table "article_blocks", force: :cascade do |t|
     t.integer "position",     limit: 4
@@ -165,6 +165,6 @@ ActiveRecord::Schema.define(version: 20160725234750) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "equation_block_variables", "article_equation_blocks"
+  add_foreign_key "equation_block_variables", "article_equation_blocks", on_delete: :cascade
   add_foreign_key "subcategories", "categories"
 end
