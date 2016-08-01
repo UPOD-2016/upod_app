@@ -6,12 +6,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(user)
-      request.try(:referer) || root_path
+    request.try(:referer) || root_path
   end
 
   private
+  
   def load_categories
-      @categories ||= Category.all.includes(:subcategories)
+    @categories ||= Category.all.includes(:subcategories)
   end
 
 end

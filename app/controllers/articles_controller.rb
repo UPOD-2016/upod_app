@@ -1,21 +1,21 @@
+# Controller for /articles/ path.  Implements CRUD actions
 class ArticlesController < ApplicationController
-  #include check_user
+  # Include check_user
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index,:show]
+  before_action :authenticate_user!, except: [:index, :show]
   # GET /articles
   def index
-    # Article.reindex
+    Article.reindex
 
     search_options = {
-      fields: ["title^5","body^5","label^1"],
+      fields: ['title^5', 'body^5', 'label^1'],
       match: :word_start,
       suggest: true,
-      misspellings: {below: 2},
-      order: {_score: :desc},
+      misspellings: { below: 2 },
+      order: { _score: :desc },
     }
 
-
-    search_options[:where] = {category: params[:cat_id] } if params[:cat_id].present?
+    search_options[:where] = { category: params[:cat_id] } if params[:cat_id].present?
     @articles = Article.search params[:q], search_options
     @suggestion = @articles.suggestions if params[:q].present?
   end
@@ -43,7 +43,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     @article.update_from_sir_trevor!(params[:sir_trevor_content])
-    redirect_to @article, success: "Successfully updated #{@article.title}"
+    redirect_to @article, success: 'Successfully updated #{@article.title}'
   end
 
   # DELETE /articles/1
@@ -53,6 +53,7 @@ class ArticlesController < ApplicationController
   end
 
   private
+  
   # Use callbacks to share common setup or constraints between actions.
   def set_article
     @article = Article.find(params[:id])

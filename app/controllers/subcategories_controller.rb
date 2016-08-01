@@ -1,3 +1,4 @@
+# Controller to display sub categories
 class SubcategoriesController < ApplicationController
   def show
 

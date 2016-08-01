@@ -1,3 +1,4 @@
+# Image controller handles creation of images.
 class ImagesController < ApplicationController
   def create
     file = params['attachment']['file']
