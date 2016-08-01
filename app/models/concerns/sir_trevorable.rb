@@ -42,7 +42,7 @@ module SirTrevorable
 
         #add any variables associated with this equation
         variables = block['data']['variables']
-        if variables != nil
+        unless variables.nil?
           variables.keys.each do |key|
             variable = EquationBlockVariable.new(variable: variables[key]["variable"],description: variables[key]["description"])
             variable.article_equation_block_id = equation_block.id

@@ -2,7 +2,7 @@
  * This is a SirTrevor block for adding text and in-line MathJax expressions
  * to articles. Text surrounded with back-ticks will be rendered by MathJax.
  *
- * author: Steven Swartz 
+ * author: Steven Swartz
 */
 
 //= require includes/sir-trevor
@@ -34,15 +34,24 @@ $(document).ready(function() {
 			},
 
             editorHTML: function() {
-                return "<div class='equation-text-block st-required' contenteditable='true'></div><button type='button' class='btn btn-primary' style='margin-top:5px;display:none;'>Show Equations</button>";
+                return "<div class='equation-text-block st-required' contenteditable='true'></div>      \
+                          <a href='#'>                                                                  \
+                            <i class='glyphicon glyphicon-eye-close text-muted'                         \
+                               style='                                                                  \
+                                    position: absolute;                                                 \
+                                    right: -81px;                                                       \
+                                    top: 67px;                                                          \
+                            '></i>                                                                      \
+                          </a>                                                                          \
+                        </div>";
             },
 
             onBlockRender: function() {
 				var this_block = this;
-				var $edit_button = $(this.el).find("button");
+				var $edit_button = $(this.el).find("a[href='#']");
 				this.$text_area = $(this.el).find(".equation-text-block");
 
-				
+
 				//Registers an equivalent of a "change" event listener to the contenteditable $text_area
 				//Code from http://stackoverflow.com/questions/1391278/contenteditable-change-events
 				this.$text_area.on('focus', function() {
@@ -50,8 +59,8 @@ $(document).ready(function() {
 
 					//Display the text entered by the user before it was rendered into math
 					this_block.showRawText();
-					
-					$edit_button.show();
+
+					// $edit_button.show();
 
 					//Store the current text
 					$this.data('before', $this.text());
@@ -60,8 +69,8 @@ $(document).ready(function() {
 				//Events that indicate the contents of a contenteditable element may have changed
 				this.$text_area.on('blur paste', function() {
 					var $this = $(this);
-					
-					$edit_button.hide();
+
+					// $edit_button.hide();
 
 					//Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
 					if ($this.data('before') !== $this.text()) {
