@@ -13,7 +13,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Image < ActiveRecord::Base
   has_many :article_image_blocks
   mount_uploader :body, SirTrevorImageUploader

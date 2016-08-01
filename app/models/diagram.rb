@@ -14,7 +14,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Diagram < ActiveRecord::Base
   has_many :article_diagram_blocks
 

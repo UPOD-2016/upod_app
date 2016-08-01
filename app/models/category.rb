@@ -16,7 +16,6 @@
 #  description :string(255)
 #  image       :string(255)
 #
-
 class Category < ActiveRecord::Base
   mount_uploader :image, CategoryImageUploader
   before_save { self.name = (name.downcase).titleize }

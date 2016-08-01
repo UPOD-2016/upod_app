@@ -11,7 +11,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Contributor < ActiveRecord::Base
   belongs_to :user
   belongs_to :article

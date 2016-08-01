@@ -16,7 +16,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class ArticleImageBlock < ActiveRecord::Base
   belongs_to :image
   acts_as :article_block

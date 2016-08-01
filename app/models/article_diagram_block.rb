@@ -19,7 +19,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class ArticleDiagramBlock < ActiveRecord::Base
   belongs_to :diagram
   acts_as :article_block
@@ -29,14 +28,12 @@ class ArticleDiagramBlock < ActiveRecord::Base
 
   # Used by SirTrevor for editing this block
   def as_json
-	{
-		type: :diagram,
-		data: {
-			code: code,
-			caption: caption
-		}
-	}
+    {
+      type: :diagram,
+      data: {
+        code: code,
+        caption: caption
+      }
+    }
   end
-
-
 end

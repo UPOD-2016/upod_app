@@ -9,9 +9,9 @@ class EquationBlockVariable < ActiveRecord::Base
 
   #Used when editing article_equation_blocks with sir trevor
   def as_json
-	{
-		variable: variable,
-		description: description
-	}
+    {
+      variable: variable,
+      description: description
+    }
   end
 end

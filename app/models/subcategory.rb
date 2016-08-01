@@ -16,7 +16,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-
 class Subcategory < ActiveRecord::Base
   belongs_to :category
   has_many :categorizations,  :dependent => :nullify
