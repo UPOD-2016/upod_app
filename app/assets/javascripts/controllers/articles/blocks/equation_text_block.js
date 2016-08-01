@@ -34,12 +34,12 @@ $(document).ready(function() {
 			},
 
             editorHTML: function() {
-                return "<div class='equation-text-block st-required' contenteditable='true'></div><button type='button' class='btn btn-primary' style='margin-top:5px;display:none;'>Show Equations</button>";
+                return "<div class='equation-text-block st-required' contenteditable='true'></div><button type='button' id='show_equations' class='btn btn-primary' style='margin-top:5px;display:none;'>Show Equations</button>";
             },
 
             onBlockRender: function() {
 				var this_block = this;
-				var $edit_button = $(this.el).find("button");
+				var $edit_button = $(this.el).find("#show_equations");
 				this.$text_area = $(this.el).find(".equation-text-block");
 
 				
@@ -61,7 +61,10 @@ $(document).ready(function() {
 				this.$text_area.on('blur paste', function() {
 					var $this = $(this);
 					
-					$edit_button.hide();
+					//if the user leaves the contenteditable blank they might forget it exists without the button reminding them
+					if ($this.text().length > 0){
+						$edit_button.hide();
+					}
 
 					//Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
 					if ($this.data('before') !== $this.text()) {
@@ -82,9 +85,7 @@ $(document).ready(function() {
 					this.setBlock(preloaded_data);
 					this_block.addInlineMath(this.$text_area);
 				}
-				else {
-					this.$text_area.focus();
-				}
+				this.$text_area.focus();
             },
 
 			//Converts the text and equations back into a form that can be edited by the user

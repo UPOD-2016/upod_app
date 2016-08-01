@@ -22,7 +22,7 @@ class ArticleTextBlock < ActiveRecord::Base
   # Used by SirTrevor for updating
   def as_json
 	{
-	  type: :equation_text,
+	  type: :text,
       data: {
         text: self.body,
         format: :html

@@ -5,6 +5,14 @@ module Blockable
     article_block = ArticleTextBlock.new(body: body)
     assign_article_id_and_save!(article_block)
   end
+  def create_equation_text_block(body:)
+    article_block = EquationTextBlock.new(body: body)
+    assign_article_id_and_save!(article_block)
+  end
+  def create_heading_text_block(body:)
+      article_block = HeadingTextBlock.new(body: body)
+	  assign_article_id_and_save!(article_block)
+  end
   def create_link_block(source:, video_id:)
     article_block = ArticleLinkBlock.new(source: source, video_id: video_id)
     assign_article_id_and_save!(article_block)

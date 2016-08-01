@@ -30,8 +30,12 @@ module SirTrevorable
     def create_block_from_sir_trevor(block)
       case block['type'].to_sym
 
-      when :text, :equation_text, :heading
-        self.create_text_block(body: block['data']['text'])
+      when :text
+		self.create_text_block(body: block['data']['text'])
+	  when :heading
+		self.create_heading_text_block(body: block['data']['text'])
+	  when :equation_text
+        self.create_equation_text_block(body: block['data']['text'])
       when :image
         uploaded_image = Image.find(block['data']['id'])
         self.create_image_block(image: uploaded_image)
