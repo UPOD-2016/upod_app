@@ -7,7 +7,7 @@
 //= require includes/MathJaxConfig
 //= require includes/MathJax
 //= require includes/sir-trevor
-//= require ./blocks/equation_text_block.js 
+//= require ./blocks/equation_text_block.js
 //= require ./blocks/equation.js
 //= require ./blocks/diagram.js
 
@@ -16,7 +16,7 @@ $(document).ready(function(){
   MathJax.Hub.Configured(); //Tell mathjax to start configuration
 
   SirTrevor.setDefaults({
-    //defaultType: "equation_text",
+    // defaultType: "Text",
     iconUrl: "<%= asset_path('sir-trevor-icons.svg') %>",
     uploadUrl: Routes.images_path(),
     ajaxOptions: {
@@ -31,7 +31,7 @@ $(document).ready(function(){
   SirTrevor.config.language = "en";
   SirTrevor.Blocks.Heading.prototype.toolbarEnabled = true;
   // SirTrevor.Blocks.Quote.prototype.toolbarEnabled = true;
-  SirTrevor.Blocks.Text.prototype.toolbarEnabled = true;
+  // SirTrevor.Blocks.Text.prototype.toolbarEnabled = true;
   window.editor = new SirTrevor.Editor({
     el: $(".js-sir-trevor-instance").get(0),
     blockTypes: [
@@ -42,7 +42,7 @@ $(document).ready(function(){
       "Video",
   	  "Diagram",
   	  "Equation",
-	  "Text",
+      "Text"
     ]
   });
 
@@ -66,8 +66,8 @@ $(document).ready(function(){
     //1. Stop the default submission from occuring. This is so we can inject
     //the necessary metadata information into the form.
     e.preventDefault();
-	
-	//2. Only proceed if there are no errors 
+
+	//2. Only proceed if there are no errors
 	//which occurs when no custom validators call setError
 	//and all fields of the st-required class are not empty
 	if (SirTrevor.onBeforeSubmit() > 0){
@@ -103,7 +103,7 @@ $(document).ready(function(){
     //9. Finally, we can convert the json object back into JSON and replace the textarea's contents
     //   with it. This is what's submitted to the server.
     $textarea.val(JSON.stringify(json));
-   
+
 	//10. Resubmit to the server
 	//Prevent an infinite loop by submitting through javascript, not jQuery
 	this.submit();

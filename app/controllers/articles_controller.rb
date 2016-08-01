@@ -43,6 +43,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   def update
     @article.update_from_sir_trevor!(params[:sir_trevor_content])
+    redirect_to @article, success: "Successfully updated #{@article.title}"
   end
 
   # DELETE /articles/1
