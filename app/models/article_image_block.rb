@@ -20,7 +20,7 @@ class ArticleImageBlock < ActiveRecord::Base
   belongs_to :image
   acts_as :article_block
 
-  def image_url(size=nil)
+  def image_url(size = nil)
     image.body.url(size)
   end
 
@@ -29,7 +29,7 @@ class ArticleImageBlock < ActiveRecord::Base
       type: :image,
       data: {
         file: {
-          url: self.image_url
+          url: image_url
         }
       }
     }

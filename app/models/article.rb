@@ -1,8 +1,9 @@
-# An Article is made up of many blocks and is the complete model. It contains various blocks that make up
-# its' look and feel.
+# An Article is made up of many blocks and is the complete model. It contains
+# various blocks that make up its' look and feel.
 # An Article is {Blockable} as well as {Searchable}
 #
-# author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz
+# author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz,
+#         Robert Morouey.
 #
 # == Schema Information
 #
@@ -50,15 +51,15 @@ class Article < ActiveRecord::Base
   def search_data
     {
       title:        title,
-      name:         blocks.map { |block| block.specific.name \
-                      if block.specific.respond_to?(:name) }.as_json,
-      body:         blocks.map { |block| block.specific.body \
-                      if block.specific.respond_to?(:body) }.as_json,
-      label:        blocks.map { |block| block.specific.label \
-                      if block.specific.respond_to?(:label) }.as_json,
+      name:         blocks.select { |b| b.specific.respond_to? :body }
+                          .map    { |b| b.specific.body },
+      body:         blocks.select { |b| b.specific.respond_to? :body }
+                          .map    { |b| b.specific.body },
+      label:        blocks.select { |b| b.specific.respond_to? :body }
+                          .map    { |b| b.specific.body },
       category:     subcategories.map(&:category_id),
       conversions:  searches.group('query').count
-    }
+    }.as_json
   end
 
   def reindex_article

@@ -1,5 +1,5 @@
-# An image can belong to many {ArticleImageBlock} so that images can be reused throughout
-# articles. The uploader used is {SirTrevorImageUploader}.
+# An image can belong to many {ArticleImageBlock} so that images can be reused
+# throughout articles. The uploader used is {SirTrevorImageUploader}.
 # @see ArticleImageBlock
 #
 # author: Mike Roher
@@ -17,7 +17,7 @@ class Image < ActiveRecord::Base
   has_many :article_image_blocks
   mount_uploader :body, SirTrevorImageUploader
 
-  #validates :body, presence: true
+  # validates :body, presence: true
 
   def self.create_from_file(file)
     image = Image.new

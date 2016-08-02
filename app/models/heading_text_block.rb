@@ -14,8 +14,9 @@ class HeadingTextBlock < ArticleTextBlock
   def as_json
     {
       type: :heading,
-        data: {
-          text: self.body,
+      data:
+        {
+          text: body,
           format: :html
         }
     }

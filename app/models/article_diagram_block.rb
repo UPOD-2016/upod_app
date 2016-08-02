@@ -6,7 +6,8 @@
 # @see Diagram
 # @see ArticleBlock
 #
-# author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz (Implementation)
+# author: Michael Roher, Kieran O'Driscoll (Validations),
+# Steven Swartz (Implementation)
 #
 # == Schema Information
 #
@@ -23,17 +24,11 @@ class ArticleDiagramBlock < ActiveRecord::Base
   belongs_to :diagram
   acts_as :article_block
 
-  validates :code, presence: true, length: {maximum: 65535}
-  validates :caption, length: {maximum: 255}
+  validates :code, presence: true, length: { maximum: 65_535 }
+  validates :caption, length: { maximum: 255 }
 
   # Used by SirTrevor for editing this block
   def as_json
-    {
-      type: :diagram,
-      data: {
-        code: code,
-        caption: caption
-      }
-    }
+    [{ type: :diagram, data: { code: code, caption: caption } }]
   end
 end

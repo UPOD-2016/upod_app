@@ -16,17 +16,18 @@
 class ArticleTextBlock < ActiveRecord::Base
   acts_as :article_block
 
-# Validates the presence and length of the body of title block
-  validates :body, presence: true, length: { maximum: 65535 }
+  # Validates the presence and length of the body of title block
+  validates :body, presence: true, length: { maximum: 65_535 }
 
   # Used by SirTrevor for updating
   def as_json
     {
       type: :text,
-        data: {
-          text: self.body,
-          format: :html
-        }
+      data:
+      {
+        text: body,
+        format: :html
+      }
     }
   end
 end
