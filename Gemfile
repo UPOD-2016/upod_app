@@ -13,7 +13,7 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
 gem 'gemoji-parser'
-gem "devise"
+gem 'devise'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -40,12 +40,12 @@ end
 gem 'js-routes'
 gem 'mina'
 #Use Administrate for admin panel
-gem "administrate", "~> 0.2.2"
-gem "administrate-field-image"
-gem "bourbon"
+gem 'administrate', '~> 0.2.2'
+gem 'administrate-field-image'
+gem 'bourbon'
 gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave'
-gem "mini_magick"
+gem 'mini_magick'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -55,7 +55,7 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'annotate'
   #Use YARD for documentation generation
-  gem "yard"
+  gem 'yard'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
