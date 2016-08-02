@@ -1,5 +1,5 @@
-# A diagram has many {ArticleDiagramBlock}. This is so a diagram can be reused in
-# many articles.
+# A diagram has many {ArticleDiagramBlock}. This is so a diagram can be reused
+# in many articles.
 # @see ArticleDiagramBlock
 #
 # Author: Kieran O'Driscoll (Validations)
@@ -17,6 +17,6 @@
 class Diagram < ActiveRecord::Base
   has_many :article_diagram_blocks
 
-  validates :body, presence: true, length: {maximum: 65535}
-  validates :label, length: {maximum: 255}, presence: true
+  validates :body, presence: true, length: { maximum: 65_535 }
+  validates :label, length: { maximum: 255 }, presence: true
 end

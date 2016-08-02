@@ -7,7 +7,8 @@
 # @see ArticleBlock
 # @see EquationBlockVariables
 #
-# author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz (Implementation)
+# author: Michael Roher, Kieran O'Driscoll (Validations),
+# Steven Swartz (Implementation)
 #
 # == Schema Information
 #
@@ -21,24 +22,19 @@ class ArticleEquationBlock < ActiveRecord::Base
   acts_as :article_block
   has_many :equation_block_variables, dependent: :destroy
 
-# Validates the length and presence of equation block and description
-  validates :equation, presence: true, length: {maximum: 65535}
-  validates :label, length: {maximum: 255}, presence: true
+  # Validates the length and presence of equation block and description
+  validates :equation, presence: true, length: { maximum: 65_535 }
+  validates :label, length: { maximum: 255 }, presence: true
 
   # Used by SirTrevor for editing this block
+  # Get each variable associated with this equation and add each of their
+  # hashes to the variables hash
   def as_json
-    #Get each variable associated with this equation and add each of their hashes to the variables hash
-    variables = Hash.new
-    self.equation_block_variables.each_with_index {|variable,index| \
-      variables[index] = variable.as_json}
-
-    {
-      type: :equation,
-      data: {
-        equation: equation,
-        label: label,
-        variables: variables
-      }
-    }
+    variables = {}
+    equation_block_variables.each_with_index do |variable, index|
+      variables[index] = variable.as_json
+    end
+    [{ type: :equation,
+       data: { equation: equation, label: label, variables: variables } }]
   end
 end

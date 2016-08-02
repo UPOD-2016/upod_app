@@ -12,12 +12,13 @@
 class EquationTextBlock < ArticleTextBlock
   # Used by SirTrevor for updating
   def as_json
-	{
-	  type: :equation_text,
-      data: {
-        text: self.body,
-        format: :html
-      }
+    {
+      type: :equation_text,
+      data:
+        {
+          text: body,
+          format: :html
+        }
     }
   end
 end
