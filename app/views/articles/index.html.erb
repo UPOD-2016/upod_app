@@ -17,10 +17,18 @@
       <h3>
         <%= link_to article.title, article %>
       </h3>
-      <p>
+      <h5>
         <%= article.blocks.map{|b| b.specific.body \
           if b.specific.respond_to?(:body)}.first.first(255) + '... ' %>
         <%= link_to '(Read More)', article %>
+      </h5>
+      <p>
+        Part of:
+        <i>
+          <% article.subcategories.each do |scat| %>
+            <%= link_to scat.name, scat %>
+          <% end %>
+        </i>
       </p>
     </div>
   <% end %>
