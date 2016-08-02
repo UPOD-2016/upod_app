@@ -51,7 +51,7 @@ $(document).ready(function() {
   						<input type='text' class='st-svg-caption form-control' id='usr'> \
 					</div> \
 				</div> \
-				<button type='button' class='btn btn-primary'>Preview</button> \
+				<button type='button' class='btn btn-primary st-preview-button'>Preview</button> \
 				<div class='st-preview' style='display:none'> \
 					<iframe class='st-preview-content' height='580' width='100%'></iframe> \
 					<p class='st-preview-caption'></p> \
