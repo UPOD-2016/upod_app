@@ -16,16 +16,16 @@
 #  description :string(255)
 #  image       :string(255)
 #
-
 class Category < ActiveRecord::Base
   mount_uploader :image, CategoryImageUploader
-  before_save { self.name = (name.downcase).titleize }
-  validates :name, presence: true, length: {maximum: 255},uniqueness: { case_sensitive: false }
-  has_many :subcategories, :dependent => :nullify
+  before_save { self.name = name.downcase.titleize }
+  validates :name, presence: true, length: { maximum: 255 }, \
+                   uniqueness: { case_sensitive: false }
+  has_many :subcategories, dependent: :nullify
   after_commit :reindex_category
 
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  friendly_id :name, use: %i(slugged finders)
 
   def should_generate_new_friendly_id?
     new_record?

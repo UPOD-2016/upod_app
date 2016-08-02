@@ -22,15 +22,16 @@ class ArticleTextBlock < ActiveRecord::Base
   #single table inheritance of subclasses through the database column "type"
   self.inheritance_column = :type 
 
-# validates the presence and length of the body of title block
-  validates :body, presence: true, length: { maximum: 65535 }
+  # Validates the presence and length of the body of title block
+  validates :body, presence: true, length: { maximum: 65_535 }
 
   # Used by SirTrevor for updating
   def as_json
-	{
-	  type: :text,
-      data: {
-        text: self.body,
+    {
+      type: :text,
+      data:
+      {
+        text: body,
         format: :html
       }
     }

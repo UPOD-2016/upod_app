@@ -14,15 +14,15 @@
 #  type :text(256)
 #
 class HeadingTextBlock < ArticleTextBlock
-
   # Used by SirTrevor for updating
   def as_json
-	{
-	  type: :heading,
-      data: {
-        text: self.body,
-        format: :html
-      }
+    {
+      type: :heading,
+      data:
+        {
+          text: body,
+          format: :html
+        }
     }
   end
 end

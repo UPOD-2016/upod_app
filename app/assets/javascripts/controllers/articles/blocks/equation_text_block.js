@@ -5,109 +5,109 @@
  * author: Steven Swartz
 */
 
-//= require includes/sir-trevor
+///..= require includes/sir-trevor
 $(document).ready(function() {
-    SirTrevor.Blocks.EquationText = (function() {
+  SirTrevor.Blocks.EquationText = (function() {
 
-        return SirTrevor.Block.extend({
+    return SirTrevor.Block.extend({
 
-            type: "equation_text",
-            title: function() {
-                return 'Text';
-            },
+      type: "equation_text",
+      title: function() {
+        return 'Text';
+      },
 
-            icon_name: 'text',
-            formatable: false,
-            textable: false,
-            paste_options: { html: null },
+      icon_name: 'text',
+      formatable: false,
+      textable: false,
+      paste_options: { html: null },
 
-			//Extracts and sets data that will be sent to the server
-			toData: function(){
-				var objData = {};
-				objData.text = this.$text_area.text();
-				this.setData(objData);
-			},
+      //Extracts and sets data that will be sent to the server
+      toData: function(){
+        var objData = {};
+        objData.text = this.$text_area.text();
+        this.setData(objData);
+      },
 
-			//Will populate the block/fields with pre-loaded data
-			setBlock: function(data){
-				this.$text_area.text(data.text);
-			},
+      //Will populate the block/fields with pre-loaded data
+      setBlock: function(data){
+        this.$text_area.text(data.text);
+      },
 
-            editorHTML: function() {
-                return "<div class='equation-text-block st-required' contenteditable='true'></div>      \
-                          <a href='#'>                                                                  \
-                            <i class='glyphicon glyphicon-eye-close text-muted'                         \
-                               style='                                                                  \
-                                    position: absolute;                                                 \
-                                    right: -81px;                                                       \
-                                    top: 67px;                                                          \
-                            '></i>                                                                      \
-                          </a>                                                                          \
-                        </div>";
-            },
+      editorHTML: function() {
+        return "<div class='equation-text-block st-required' contenteditable='true'></div>    \
+              <a href='#'>                                  \
+              <i class='glyphicon glyphicon-eye-close text-muted'             \
+                 style='                                  \
+                  position: absolute;                         \
+                  right: -81px;                             \
+                  top: 67px;                              \
+              '></i>                                    \
+              </a>                                      \
+            </div>";
+      },
 
-            onBlockRender: function() {
-				var this_block = this;
-				var $edit_button = $(this.el).find("#show_equations");
-				this.$text_area = $(this.el).find(".equation-text-block");
+      onBlockRender: function() {
+        var this_block = this;
+        var $edit_button = $(this.el).find("#show_equations");
+        this.$text_area = $(this.el).find(".equation-text-block");
 
 
-				//Registers an equivalent of a "change" event listener to the contenteditable $text_area
-				//Code from http://stackoverflow.com/questions/1391278/contenteditable-change-events
-				this.$text_area.on('focus', function() {
-					var $this = $(this);
+        //Registers an equivalent of a "change" event listener to the contenteditable $text_area
+        //Code from http://stackoverflow.com/questions/1391278/contenteditable-change-events
+        this.$text_area.on('focus', function() {
+          var $this = $(this);
 
-					//Display the text entered by the user before it was rendered into math
-					this_block.showRawText();
+          //Display the text entered by the user before it was rendered into math
+          this_block.showRawText();
 
-					// $edit_button.show();
+          // $edit_button.show();
 
-					//Store the current text
-					$this.data('before', $this.text());
-				});
+          //Store the current text
+          $this.data('before', $this.text());
+        });
 
-				//Events that indicate the contents of a contenteditable element may have changed
-				this.$text_area.on('blur paste', function() {
-					var $this = $(this);
+        //Events that indicate the contents of a contenteditable element may have changed
+        this.$text_area.on('blur paste', function() {
+          var $this = $(this);
 
-					//if the user leaves the contenteditable blank they might forget it exists without the button reminding them
-					if ($this.text().length > 0){
-						$edit_button.hide();
-					}
+          //if the user leaves the contenteditable blank they might forget it exists without the button reminding them
+          if ($this.text().length > 0){
+            $edit_button.hide();
+          }
 
-					//Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
-					if ($this.data('before') !== $this.text()) {
-						//update the current text in this element
-						$this.data('before', $this.text());
+          //Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
+          if ($this.data('before') !== $this.text()) {
+            //update the current text in this element
+            $this.data('before', $this.text());
 
-						//Update the raw text entered by the user that will be sent to the server before mathjax modifies it
-						this_block.toData();
-					}
-					//Render any delimited equations as mathjax
-					this_block.addInlineMath($this);
-				});
+            //Update the raw text entered by the user that will be sent to the server before mathjax modifies it
+            this_block.toData();
+          }
+          //Render any delimited equations as mathjax
+          this_block.addInlineMath($this);
+        });
 
-				//Check if data has already been loaded by sir trevor
-				var preloaded_data = this.getBlockData();
-				if (!jQuery.isEmptyObject(preloaded_data)){
-					//add data to inputs and preview area using preloaded_data
-					this.setBlock(preloaded_data);
-					this_block.addInlineMath(this.$text_area);
-				}
-				this.$text_area.focus();
-            },
+        //Check if data has already been loaded by sir trevor
+        var preloaded_data = this.getBlockData();
+        if (!jQuery.isEmptyObject(preloaded_data)){
+          //add data to inputs and preview area using preloaded_data
+          this.setBlock(preloaded_data);
+          this_block.addInlineMath(this.$text_area);
+        }
+        this.$text_area.focus();
+      },
 
-			//Converts the text and equations back into a form that can be edited by the user
-			showRawText: function(){
-				//Remove all elements from the text_area so that there are no elements that were created by mathjax
-				this.$text_area.empty();
-				//Show the raw text entered by the user before it was converted into mathjax
-				this.$text_area.text(this.getBlockData().text);
-			},
+      //Converts the text and equations back into a form that can be edited by the user
+      showRawText: function(){
+        //Remove all elements from the text_area so that there are no elements that were created by mathjax
+        this.$text_area.empty();
+        //Show the raw text entered by the user before it was converted into mathjax
+        this.$text_area.text(this.getBlockData().text);
+      },
 
-			addInlineMath: function($elements){
-				MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,$elements.get()]);
-			}
-        })
-    })(jQuery);
+      addInlineMath: function($elements){
+        MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,$elements.get()]);
+      }
+    })
+  })(jQuery);
 });

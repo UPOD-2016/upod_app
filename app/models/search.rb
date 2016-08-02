@@ -5,8 +5,6 @@
 # to the top of the results list.
 #
 ######
-
 class Search < ActiveRecord::Base
-    belongs_to :article
-
+  belongs_to :article
 end

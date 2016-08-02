@@ -14,8 +14,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-
 class Categorization < ActiveRecord::Base
-	belongs_to :article
-	belongs_to :subcategory
+  belongs_to :article
+  belongs_to :subcategory
 end
