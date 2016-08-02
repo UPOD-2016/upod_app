@@ -1,5 +1,5 @@
-<% title "Articles" %>
-<p id="notice">
+<% title 'Articles' %>
+<p id='notice'>
   <%= notice %>
 </p>
 
@@ -9,24 +9,29 @@
     of categories will be shown instead
 %>
 <% if params[:q].present? || params[:cat_id].present? %>
-  <h1 class="text-center">
+  <h1 class='text-center'>
     Search Results
   </h1>
   <% @articles.each do |article| %>
-    <div style="padding: 20px; margin-left: 10%">
+    <div style='padding: 20px; margin-left: 10%'>
       <h3>
         <%= link_to article.title, article %>
       </h3>
+      <p>
+        <%= article.blocks.map{|b| b.specific.body \
+          if b.specific.respond_to?(:body)}.first.first(255) + '... ' %>
+        <%= link_to '(Read More)', article %>
+      </p>
     </div>
   <% end %>
 <% else %>
-  <div class="container">
-    <h1 class="text-center">
+  <div class='container'>
+    <h1 class='text-center'>
       Listing Articles
     </h1>
     <hr>
     <% @categories.each do |category| %>
-      <div class="col-md-2">
+      <div class='col-md-2'>
         <div>
           <h4>
             <strong>
@@ -53,5 +58,4 @@
   </div>
 <% end %>
 <br>
-
 <%= link_to 'New Article', new_article_path %>
