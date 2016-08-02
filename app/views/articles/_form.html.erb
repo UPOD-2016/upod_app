@@ -3,20 +3,14 @@
     <div class="col-md-9">
       <form class="additional-sir-trevor-form">
         <div class="form-group">
-          <strong>
-            <%= text_field_tag :title, article.try(:title),
-                               class: 'form-control input-lg',
-                              placeholder: 'Enter Article Title Here' %>
-          </strong>
-        </div><!-- form-group -->
+          <strong><%= text_field_tag :title, article.try(:title),class: 'form-control input-lg', placeholder: 'Enter Article Title Here' %></strong>
+        </div>
       </form>
-      <%= form_tag article, method: article.new_record? ? :post : :patch,
-                            class: 'sir-trevor-form' do %>
-        <%= text_area_tag :sir_trevor_content, article.try(:to_sir_trevor),
-                          class: 'js-sir-trevor-instance' %>
+      <%= form_tag article, method: article.new_record? ? :post : :patch, class: 'sir-trevor-form' do %>
+        <%= text_area_tag :sir_trevor_content, article.try(:to_sir_trevor), class: 'js-sir-trevor-instance' %>
         <%= submit_tag 'Save Article', class: 'btn btn-success btn-block' %>
       <% end %>
-    </div><!-- col-md-9 -->
+    </div>
     <div class="col-md-3">
       <div class="panel-group">
         <div class="panel panel-default">
@@ -24,23 +18,25 @@
             <h4 class="panel-title">
               <a data-toggle="collapse" href="#subcategories-checkboxes">
                 Add Subcategory
-                <i class="glyphicon glyphicon-chevron-right pull-right" />
-                <i class="glyphicon glyphicon-chevron-down pull-right" />
+                <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                <i class="glyphicon glyphicon-chevron-down pull-right"></i>
               </a>
             </h4>
-          </div><!-- panel-heading -->
+          </div>
           <div id="subcategories-checkboxes" class="panel-collapse collapse">
             <div class="panel-body">
               <form class="additional-sir-trevor-form">
-                <%= collection_check_boxes(:article, :categorizations,
-                              Subcategory.all, :id, :name) do |b| %>
-                  <div class="checkbox">
-                    <%= b.label do %>
-                      <%= b.check_box %>
-                      <%= b.text %>
-                    <% end %>
-                  </div><!-- check_box -->
-                <% end %>
+				<% Category.order(:name).each do |category| %>
+					<b><p><%= category.name %></p></b>
+					<%= collection_check_boxes(:article, :categorizations, category.subcategories.order(:name), :id, :name) do |b| %>
+					  <div class="checkbox">
+						<%= b.label do %>
+						  <%= b.check_box %>
+						  <%= b.text %>
+						<% end %>
+					  </div>
+					<% end %>
+				<% end %>
               </form>
             </div> <!-- panel-body -->
           </div> <!-- subcategories-checkbox -->
