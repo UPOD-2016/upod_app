@@ -46,21 +46,38 @@ gem "bourbon"
 gem 'friendly_id', '~> 5.1.0'
 gem 'carrierwave'
 gem "mini_magick"
-gem 'quiet_assets'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+
+  # Gives pages load times to spot bottle necks
   gem 'rack-mini-profiler'
   gem 'annotate'
-  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-  gem 'railroady'
   #Use YARD for documentation generation
   gem "yard"
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+  gem 'railroady'
+
+  # Brakeman scans for known vulnurabilities
+  gem 'brakeman'
+  gem 'quiet_assets'
+  # Make sure there is no unused gems
+  gem 'bundler-audit'
+
+  # Make sure style conforms
+  gem 'rubocop'
+
+  # Check for unused routes
+  gem 'traceroute'
 end
 
+group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+end
 
 group :development, :test do
   gem 'byebug'
@@ -68,8 +85,4 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'spring-commands-rspec'
   gem 'faker'
-end
-
-group :test do
-  gem 'shoulda-matchers', '~> 3.1'
 end
