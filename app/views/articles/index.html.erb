@@ -10,7 +10,8 @@
 -->
 <% if params[:q].present? || params[:cat_id].present? %>
 	<h1 class="text-center">Search Results</h1>
-	<% unless @suggestion.empty? || @suggestion.nil? %>
+
+	<% unless @suggestion.blank? %>
 		<h4>
 			Did you mean: <%= @suggestion %>
 		</h4>
