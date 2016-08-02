@@ -1,3 +1,6 @@
+# HeadingTextBlock is a subclass of {ArticleTextBlock}
+# When rendered, its body is intended to be displayed as a header.
+#
 # @see ArticleTextBlock
 #
 # author: Steven Swartz
@@ -8,6 +11,7 @@
 #
 #  id   :integer          not null, primary key
 #  body :text(65535)
+#  type :text(256)
 #
 class HeadingTextBlock < ArticleTextBlock
   # Used by SirTrevor for updating

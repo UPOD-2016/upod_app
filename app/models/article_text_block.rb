@@ -1,7 +1,10 @@
 # ArticleTestBlock is a more specific {ArticleBlock}.
-# It contains an id and the body. ArticleTextBlock acts as an article block
-# It inherits ArticleBlock's attributes, methods and validations.
+# It is a generic block that contains a body attribute.
+# Other blocks that can be represented by a single string
+# should inherit this block and provide a unique partial html
+# view when rendered in articles.
 # The body of the text block is {Searchable}
+# 
 # @see ArticleBlock
 #
 # author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz
@@ -12,9 +15,12 @@
 #
 #  id   :integer          not null, primary key
 #  body :text(65535)
+#  type :text(256)
 #
 class ArticleTextBlock < ActiveRecord::Base
   acts_as :article_block
+  #single table inheritance of subclasses through the database column "type"
+  self.inheritance_column = :type 
 
   # Validates the presence and length of the body of title block
   validates :body, presence: true, length: { maximum: 65_535 }
