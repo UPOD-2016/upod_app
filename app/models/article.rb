@@ -23,6 +23,9 @@ class Article < ActiveRecord::Base
   # Validates the title and it's length
   validates :title, presence: true, length: { maximum: 255 }
 
+  # Reindex article class after changes
+  after_commit :reindex_article
+
   # This include is defined in the blockable.rb concern. Essentially, it
   # provides a nice interface to interact with the various types of article
   # blocks. Instead of having to use the ArticleTextBlock, you can now use
@@ -32,7 +35,7 @@ class Article < ActiveRecord::Base
   include SirTrevorable
 
   searchkick \
-    searchable:   %w(name, title, body, label),
+    searchable:   %i(title body name label),
     match:        :word_start,
     callbacks:    :async,
     conversions:  :converstions
@@ -46,12 +49,19 @@ class Article < ActiveRecord::Base
 
   def search_data
     {
-      title: title,
-      name: blocks.map { |block| block.specific.name if block.specific.respond_to?(:name) }.as_json,
-      body: blocks.map { |block| block.specific.body if block.specific.respond_to?(:body) }.as_json,
-      label: blocks.map { |block| block.specific.label if block.specific.respond_to?(:label) }.as_json,
-      category: subcategories.map(&:category_id),
-      conversions: searches.group('query').count
+      title:        title,
+      name:         blocks.map { |block| block.specific.name \
+                      if block.specific.respond_to?(:name) }.as_json,
+      body:         blocks.map { |block| block.specific.body \
+                      if block.specific.respond_to?(:body) }.as_json,
+      label:        blocks.map { |block| block.specific.label \
+                      if block.specific.respond_to?(:label) }.as_json,
+      category:     subcategories.map(&:category_id),
+      conversions:  searches.group('query').count
     }
+  end
+
+  def reindex_article
+    Article.reindex
   end
 end

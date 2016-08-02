@@ -5,19 +5,22 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   # GET /articles
   def index
-    Article.reindex
 
+    redirect_to Category.find(params[:cat_id]) \
+      if params[:cat_id].present? && params[:q].blank?
+        
     search_options = {
-      fields: ['title^5', 'body^5', 'label^1'],
+      fields: %w(title^10 name body label),
       match: :word_start,
-      suggest: true,
-      misspellings: { below: 2 },
+      misspellings: { edit_distance: 1 },
       order: { _score: :desc },
+      boost_where: { title: :exact }
     }
 
-    search_options[:where] = { category: params[:cat_id] } if params[:cat_id].present?
+    search_options[:where] =  { category: params[:cat_id] } \
+                                if params[:cat_id].present?
+
     @articles = Article.search params[:q], search_options
-    @suggestion = @articles.suggestions if params[:q].present?
   end
 
   # GET /articles/1
@@ -53,7 +56,7 @@ class ArticlesController < ApplicationController
   end
 
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_article
     @article = Article.find(params[:id])
