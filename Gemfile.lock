@@ -144,6 +144,7 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    libv8 (3.16.14.15)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -207,6 +208,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.2.2)
+    ref (2.0.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.1)
@@ -250,6 +252,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -291,7 +296,6 @@ DEPENDENCIES
   goldiloader
   jquery-rails
   js-routes
-  json (= 1.8.2)
   mina
   mini_magick
   mysql2 (~> 0.3.18)
@@ -306,6 +310,7 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   spring
   spring-commands-rspec
+  therubyracer
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
