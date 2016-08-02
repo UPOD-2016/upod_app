@@ -49,21 +49,21 @@ class Article < ActiveRecord::Base
   end
 
   def search_data
-    [{
+    {
       title:        title,
       name:         get_specific_blocks(:name),
       body:         get_specific_blocks(:body),
       label:        get_specific_blocks(:label),
       category:     subcategories.map(&:category_id),
       conversions:  searches.group('query').count
-    }]
+    }.as_json
   end
+
+  private
 
   def reindex_article
     Article.reindex
   end
-
-  private
 
   def get_specific_blocks(sym)
     blocks.select { |b| b.specific.respond_to? :sym }.map { |b| b.specic.sym }
