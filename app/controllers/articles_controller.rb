@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     redirect_to Category.find(params[:cat_id]) \
       if category_provided_with_no_search_query?
 
-    search_options = get_search_options
+    search_options = read_search_options
     search_options[:where] = { category: params[:cat_id] } \
                                 if params[:cat_id].present?
 
