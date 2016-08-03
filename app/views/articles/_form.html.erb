@@ -17,7 +17,7 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a data-toggle="collapse" href="#subcategories-checkboxes">
-                Add Subcategory
+                Add Subcategories
                 <i class="glyphicon glyphicon-chevron-right pull-right"></i>
                 <i class="glyphicon glyphicon-chevron-down pull-right"></i>
               </a>
@@ -31,7 +31,8 @@
 					<%= collection_check_boxes(:article, :categorizations, category.subcategories.order(:name), :id, :name) do |b| %>
 					  <div class="checkbox">
 						<%= b.label do %>
-						  <%= b.check_box %>
+						  <% #when editing, check if the article originally belonged to this subcategory and check the check_box if so %>
+						  <%= b.check_box(checked: if defined?(@article_subcategory_ids) then @article_subcategory_ids.include?(b.value) else false end) %>
 						  <%= b.text %>
 						<% end %>
 					  </div>
