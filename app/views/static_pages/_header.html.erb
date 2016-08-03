@@ -39,17 +39,25 @@
                   <%= link_to 'Articles', articles_path, :style => 'width:auto;' %>
                 </li>
               </ul>
-              <% unless current_page?(root_path) %>
                 <ul class='nav navbar-nav navbar-right'>
-                <!-- nav search -->
-                  <form class='navbar-form' role='search' action='/articles'
-                    style='margin-right:auto;margin-left:auto;'>
-                    <ul class='input-group'>
-                      <%= render partial: 'static_pages/search_form' %>
-                    </ul>
-                </form>
+                  <% unless current_page?(root_path) %>
+                    <!-- nav search -->
+                    <li>
+                      <%= form_tag articles_path, {role: :search, class: 'navbar-form', style: "margin-right:auto;margin-left:auto;"} do %>
+                          <ul class='input-group'>
+                            <%= render partial: 'static_pages/search_form' %>
+                          </ul>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <% #Registration Links %>
+                  <% if user_signed_in? %>
+                    <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete) %></li>
+                  <% else %>
+                    <li><%= link_to('Sign In', new_user_session_path)  %> </li>
+                    <li><%= link_to('Sign Up', new_user_registration_path)  %></li>
+                <% end %>
               </ul>
-            <% end %>
         </div>
     </div>
 </nav>
