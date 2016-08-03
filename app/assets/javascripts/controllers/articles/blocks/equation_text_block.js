@@ -17,8 +17,8 @@ $(document).ready(function() {
             },
 
             icon_name: 'text',
-            formatable: false,
-            textable: false,
+            toolbarEnabled: true,
+			textable: false,
             paste_options: { html: null },
 
 			//Extracts and sets data that will be sent to the server
@@ -34,15 +34,13 @@ $(document).ready(function() {
 			},
 
             editorHTML: function() {
-                return "<div class='equation-text-block st-required' contenteditable='true'></div>      \
-                          <a href='#'>                                                                  \
+                return "<div class='equation-text-block st-required' contenteditable='true'></div>      \                                                                  \
                             <i title='Show Equations' class='glyphicon glyphicon-eye-close text-muted'                         \
                                style='                                                                  \
                                     position: absolute;                                                 \
                                     right: -81px;                                                       \
                                     top: 67px;                                                          \
-                            '></i>                                                                      \
-                          </a>                                                                          \
+                            '></i>                                                                      \                                                                       \
                         </div>";
             },
 

@@ -27,6 +27,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+	#used when populating checkboxes to avoid querying for each subcategory when determining if the article belongs to it
+	@article_subcategory_ids = @article.subcategory_ids
   end
 
   # POST /articles

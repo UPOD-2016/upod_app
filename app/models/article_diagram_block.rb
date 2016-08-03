@@ -6,8 +6,7 @@
 # @see Diagram
 # @see ArticleBlock
 #
-# author: Michael Roher, Kieran O'Driscoll (Validations),
-# Steven Swartz (Implementation)
+# author: Michael Roher, Kieran O'Driscoll (Validations), Steven Swartz (Implementation)
 #
 # == Schema Information
 #
@@ -17,18 +16,35 @@
 #  diagram_id :integer
 #  code :text
 #  caption :string(255)
+#  height :integer
+#  width  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class ArticleDiagramBlock < ActiveRecord::Base
   belongs_to :diagram
   acts_as :article_block
+  
+  #based on http://www.w3schools.com/browsers/browsers_display.asp
+  MAX_WIDTH = 1080
+  MAX_HEIGHT = 1920
 
   validates :code, presence: true, length: { maximum: 65_535 }
   validates :caption, length: { maximum: 255 }
-
+  validates :height, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: MAX_HEIGHT}
+  validates :width, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: MAX_WIDTH}
+  
   # Used by SirTrevor for editing this block
   def as_json
-    [{ type: :diagram, data: { code: code, caption: caption } }]
+    {
+      type: :diagram,
+      data:
+        {
+          caption: caption,
+		  code: code,
+		  width: width,
+		  height: height
+        }
+    }
   end
 end
