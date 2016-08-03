@@ -25,8 +25,8 @@ module Blockable
     article_block = ArticleEquationBlock.new(equation: equation, label: label)
     assign_article_id_and_save!(article_block)
   end
-  def create_diagram_block(code:, caption: nil)
-    article_block = ArticleDiagramBlock.new(code: code, caption: caption)
+  def create_diagram_block(code:, caption: nil, height:, width:)
+    article_block = ArticleDiagramBlock.new(code: code, caption: caption, height: height, width: width)
     assign_article_id_and_save!(article_block)
   end
 

@@ -55,7 +55,7 @@ module SirTrevorable
         end
 
       when :diagram
-        self.create_diagram_block(code: block['data']['code'], caption: block['data']['caption'])
+        self.create_diagram_block(code: block['data']['code'], caption: block['data']['caption'], height: block['data']['height'], width: block['data']['width'])
       end
     end
 
