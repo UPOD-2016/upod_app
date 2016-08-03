@@ -54,7 +54,7 @@ class ArticlesController < ApplicationController
       fields: %w(title^10 name body label),
       match: :word_start,
       misspellings: { edit_distance: 1 },
-      order: { _score: :desc },
+      #order: { _score: :desc },
       boost_where: { title: :exact }
     }
   end

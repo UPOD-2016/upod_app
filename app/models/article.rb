@@ -38,8 +38,8 @@ class Article < ActiveRecord::Base
   searchkick \
     searchable:   %i(title body name label),
     match:        :word_start,
-    callbacks:    :async,
-    conversions:  :converstions
+    callbacks:    :async#,
+    #conversions:  :converstions
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -54,8 +54,8 @@ class Article < ActiveRecord::Base
       name:         get_specific_blocks(:name),
       body:         get_specific_blocks(:body),
       label:        get_specific_blocks(:label),
-      category:     subcategories.map(&:category_id),
-      conversions:  searches.group('query').count
+      category:     subcategories.map(&:category_id)#,
+      #conversions:  searches.group('query').count
     }.as_json
   end
 
