@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: "upod-production"
+  socket: /var/run/mysql/mysql.sock
   username: <%= ENV['UPOD_USR'] %>
   password: <%= ENV['UPOD_PWD'] %>

@@ -60,19 +60,29 @@ $(document).ready(function(){
    });
    //Remove the icon for the default text block from the list of all blocks to click on
    $(SirTrevor.config.instances[0].blockControls.el.children).find("[data-type='text']").remove();
-  
+
 
   $('.sir-trevor-form').submit(function(e) {
     //1. Stop the default submission from occuring. This is so we can inject
     //the necessary metadata information into the form.
     e.preventDefault();
 
-	//2. Only proceed if there are no errors
-	//which occurs when no custom validators call setError
-	//and all fields of the st-required class are not empty
-	if (SirTrevor.onBeforeSubmit() > 0){
-		return;
-	}
+  	//2. Only proceed if there are no errors
+  	//which occurs when no custom validators call setError
+  	//and all fields of the st-required class are not empty
+  	if (SirTrevor.onBeforeSubmit() > 0){
+  		return;
+  	}
+
+    //2b. Check if the title is submitted
+    var title = $('#title').val();
+    if (title === null || title === '') {
+      $('<div />', {
+        "class": 'alert alert-danger',
+        text: "Please add a title"
+      }).prependTo($('.wraping .container'));
+      return false;
+    }
 
     //3. The textarea stores the JSON that is submitted to the server. So, our
     //first step is to find the textarea and store it in a variable. The additional
@@ -89,7 +99,7 @@ $(document).ready(function(){
     json.meta = {};
 
     //6. Grab the title and create the string.
-    json.meta.title = $('#title').val();
+    json.meta.title = title;
 
     //7. Find all selected subcategories
     var $selectedSubcategories = $additionalMetaForms.find('input:checkbox:checked');

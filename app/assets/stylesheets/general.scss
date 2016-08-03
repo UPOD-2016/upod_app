@@ -145,6 +145,20 @@ p {
 }
 
 /**********************************************
+			Hovering Zoom on Icon
+			Created by: Brian Oh
+***********************************************/
+
+.img-responsive {
+  transition: all .2s ease-in-out;
+}
+
+.img-responsive:hover {
+  transform: scale(1.1);;
+}
+
+
+/**********************************************
 *               New push menu                 *
 ***********************************************/
 
