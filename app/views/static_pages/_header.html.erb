@@ -1,63 +1,68 @@
-
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <nav class='navbar navbar-inverse navbar-static-top'>
-    <div class='container'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
-            <span class='sr-only'>Toggle navigation</span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            </button>
-            <%= link_to root_path, class: 'navbar-brand' do %>
-            <%= image_tag 'upod_logo_color_v2.png', width: 100 %>
-            <% end %>
-        </div>
-        <div id='navbar' class='navbar-collapse collapse'>
-            <ul class='nav navbar-nav'>
-                <li class='dropdown mega-dropdown'>
-                    <a href='#' class='dropdown-toggle' style='width:auto;' data-toggle='dropdown'>Categories <span class='caret'></span></a>
-                    <ul class='dropdown-menu mega-dropdown-menu row'>
-                      <% @categories.each do |category| %>
-                        <li class='col-sm-2'>
-                          <ul>
-                             <li><%= link_to category.name, category, :class => 'dropdown-header' %></li>
-                                  <% category.subcategories.each do |subcategory| %>
-                                        <li>
-                                          <%= link_to subcategory.name, subcategory %>
-                                        </li>
-                                  <% end %>
-                          </ul>
-                        </li>
-                      <% end %>
-                    </ul>
-                </li>
-                <li>
-                  <%= link_to 'About', about_path, :style => 'width:auto;' %>
-                </li>
-                <li>
-                  <%= link_to 'Articles', articles_path, :style => 'width:auto;' %>
-                </li>
-              </ul>
-                <ul class='nav navbar-nav navbar-right'>
-                  <% unless current_page?(root_path) %>
-                    <!-- nav search -->
+  <div class='container'>
+    <div class='navbar-header'>
+      <button type='button' class='navbar-toggle collapsed'
+        data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+      <span class='sr-only'>Toggle navigation</span>
+      <span class='icon-bar'></span>
+      <span class='icon-bar'></span>
+      <span class='icon-bar'></span>
+      </button>
+      <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag 'upod_logo_color_v2.png', width: 100 %>
+      <% end %>
+    </div>
+    <div id='navbar' class='navbar-collapse collapse'>
+      <ul class='nav navbar-nav'>
+        <li class='dropdown mega-dropdown'>
+          <a href='#' class='dropdown-toggle' style='width:auto;' data-toggle='dropdown'>
+            Categories
+            <span class='caret'></span>
+          </a>
+          <ul class='dropdown-menu mega-dropdown-menu row'>
+            <% @categories.each do |category| %>
+            <li class='col-sm-2'>
+              <ul>
+               <li><%= link_to category.name, category, :class => 'dropdown-header' %></li>
+                  <% category.subcategories.each do |subcategory| %>
                     <li>
-                      <%= form_tag articles_path, {role: :search, class: 'navbar-form', style: "margin-right:auto;margin-left:auto;"} do %>
-                          <ul class='input-group'>
-                            <%= render partial: 'static_pages/search_form' %>
-                          </ul>
-                      <% end %>
+                      <%= link_to subcategory.name, subcategory %>
                     </li>
                   <% end %>
-                  <% #Registration Links %>
-                  <% if user_signed_in? %>
-                  <li><%= link_to('Admin', admin_articles_path, style: 'width:auto;')  %> </li>
-                    <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete, style: 'width:auto;') %></li>
-                  <% else %>
-                    <li><%= link_to('Sign In', new_user_session_path)  %> </li>
-                <% end %>
               </ul>
-        </div>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <%= link_to 'About', about_path, :style => 'width:auto;' %>
+        </li>
+        <li>
+          <%= link_to 'Articles', articles_path, :style => 'width:auto;' %>
+        </li>
+        </ul>
+        <ul class='nav navbar-nav navbar-right'>
+          <% unless current_page?(root_path) %>
+          <!-- nav search -->
+          <li>
+            <%= form_tag articles_path, {role: :search,
+            class: 'navbar-form', method: :get,
+            style: "margin-right:auto;margin-left:auto;"} do %>
+              <ul class='input-group'>
+              <%= render partial: 'static_pages/search_form' %>
+              </ul>
+            <% end %>
+          </li>
+          <% end %>
+          <% #Registration Links %>
+          <% if user_signed_in? %>
+          <li><%= link_to('Admin', admin_articles_path, style: 'width:auto;')  %> </li>
+            <li><%= link_to('Sign Out', destroy_user_session_path, :method => :delete, style: 'width:auto;') %></li>
+          <% else %>
+            <li><%= link_to('Sign In', new_user_session_path)  %> </li>
+        <% end %>
+        </ul>
     </div>
+  </div>
 </nav>
