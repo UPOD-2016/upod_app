@@ -4,7 +4,7 @@
     The following lines check to see if there is a search query.  If there is
     than search results will be displayed.  If there isn't a query than a list
     of categories will be shown instead
-%>
+#%>
 <% if params[:q].present? || params[:cat_id].present? %>
   <h1 class='text-center'>
     Search Results
@@ -15,8 +15,10 @@
         <%= link_to article.title, article %>
       </h3>
       <h5>
-        <%= article.blocks.map{|b| b.specific.body \
-          if b.specific.respond_to?(:body)}.first.first(255) + '... ' %>
+        <% @text = article.blocks.map{|b| b.specific.body if b.specific.respond_to?(:body)} %>
+        <% unless @text.blank? %>
+          <%= @text.first.first(255) %>
+        <% end %>
         <%= link_to '(Read More)', article %>
       </h5>
       <p>
