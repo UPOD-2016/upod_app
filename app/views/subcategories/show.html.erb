@@ -19,7 +19,7 @@
     <p>
       <% @text = article.blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)} %>
       <% unless @text.blank? || @text.first.blank? %>
-        <%= @text.first.first(255) << '...'  %>
+        <%= @text.first.first(75) << '...'  %>
       <% else %>
         ...
       <% end %>
