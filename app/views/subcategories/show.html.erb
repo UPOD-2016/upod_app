@@ -9,14 +9,21 @@
   <hr>
   <div class="container" style="margin-top:30px;text-align:center;padding:10px;">
 
-	<% @subcategory.articles.each do |article| %>
-	<div class="col-sm-4" style="padding:10px;" >
-		<h4><strong>
-		<%= link_to article.title, article %>
-		</strong></h4>
-		<hr>
-	</div>
-	<% end %>
+  <% @subcategory.articles.each do |article| %>
+  <div class="col-sm-4" style="padding:10px;" >
+    <h4>
+      <strong>
+        <%= link_to article.title, article %>
+      </strong>
+    </h4>
+    <p>
+      <% @text = article.blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)} %>
+      <% unless @text.blank? || @text.first.blank? %>
+        <%= @text.first.first(150) %>
+      <% end %>
+    <hr>
+  </div>
+  <% end %>
 
   </div>
 </div>
