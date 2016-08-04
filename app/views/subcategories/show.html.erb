@@ -19,7 +19,9 @@
     <p>
       <% @text = article.blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)} %>
       <% unless @text.blank? || @text.first.blank? %>
-        <%= @text.first.first(150) %>
+        <%= @text.first.first(150) << '...'  %>
+      <% else %>
+        ...
       <% end %>
     <hr>
   </div>
