@@ -2,10 +2,10 @@
 .navbar-nav>li>.dropdown-menu {
     border-top-left-radius:4px;
     border-top-right-radius:4px;
-		background-color: $navbar-inverse-bg;
+    background-color: $navbar-inverse-bg;
 }
 .navbar-inverse .navbar-nav>li>a {
-	width:100px;
+  width:100px;
 }
 .mega-dropdown {
   position: static !important;
@@ -53,7 +53,7 @@
 
 /*General page styling*/
 html, body {
-	width: 100%;
+  width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
@@ -70,7 +70,7 @@ body{
   left: 0;
   margin: 0;
   overflow: auto;
-	padding: 0;
+  padding: 0;
   overflow-x: hidden;
   position: relative;
 }
@@ -102,8 +102,10 @@ p{
 .wraping {
   position: static;
   width: 100%;
-  padding: 0px;
+  padding: 0px  ;
   margin: 0px;
+  overflow-y: scroll;
+  height: 92%;
 }
 
 .headerContent{
@@ -127,7 +129,7 @@ p{
     overflow: hidden;
     position: relative;
     background-color: #330072;
-	color:#330072
+  color:#330072
 }
 .homeJumbotron{
   background-color: #330072;
@@ -135,20 +137,20 @@ p{
 
 /*aboutpage styling*/
 .aboutBody {
-	margin-top: 30px;
-	background-color: #FFFFFF;
+  margin-top: 30px;
+  background-color: #FFFFFF;
 }
 .aboutCommentBox{
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 
 }
 #aboutLabel{
-	font-size: 15px;
-	color:black;
+  font-size: 15px;
+  color:black;
 }
 #aboutHeading{
-	font-size: 30px;
-	font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 /* Login Page Sytle */
@@ -232,7 +234,7 @@ p{
 .dropdown-content {
     display: none;
     position: absolute;
-	right: 0;
+  right: 0;
     background-color: #F5F5DC; /* default: #f9f9f9 */
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -287,7 +289,7 @@ body {
     text-align: center;
     padding: 180px;
     font-size: 25px;
-	color: white;
+  color: white;
 }
 
 #body_text {
@@ -314,7 +316,7 @@ body {
 }
 
 .textareaDiv {
-	resize: none;
+  resize: none;
     overflow: auto;}
 
 
