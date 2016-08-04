@@ -6,6 +6,7 @@
     of categories will be shown instead
 #%>
 <% if params[:q].present? || params[:cat_id].present? %>
+  <div class='container', style="margin-bottom:150px;">
   <h1 class='text-center'>
     Search Results
   </h1>
@@ -31,8 +32,9 @@
       </p>
     </div>
   <% end %>
+  </div>
 <% else %>
-  <div class='container'>
+  <div class='container', style="margin-bottom:150px;">
     <h1 class='text-center'>
       Listing Articles
     </h1>
@@ -42,19 +44,19 @@
         <div>
           <h4>
             <strong>
-              <%= link_to category.name, category %>
+              <%= link_to category.name, category, :style => "color:#551A8B;" %>
             </strong>
           </h4>
           <hr>
           <% category.subcategories.each do |subcategory| %>
             <h5>
               <strong>
-                <%= link_to subcategory.name, subcategory %>
+                <%= link_to subcategory.name, subcategory, :style => "color:#CDAD00;font-size:1.2em;" %>
               </strong>
             </h5>
             <% subcategory.articles.each do |article| %>
               <h6>
-                <%= link_to article.title, article %>
+                <%= link_to article.title, article, :style => "font-size:1.2em;" %>
               </h6>
             <% end %>
             <hr>
