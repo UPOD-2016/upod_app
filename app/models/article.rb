@@ -51,11 +51,11 @@ class Article < ActiveRecord::Base
   end
 
   def update_slug
-    slug = title.parameterize unless title.blank?
+    @slug = title.blank? ? title : title.parameterize
   end
 
   def to_param
-    slug
+    "#{id}-#{update_slug}"
   end
 
   def search_data
