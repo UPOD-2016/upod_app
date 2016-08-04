@@ -21,11 +21,13 @@ class Article < ActiveRecord::Base
   has_many :subcategories, through: :categorizations
   has_many :searches
 
+
   # Validates the title and it's length
   validates :title, presence: true, length: { maximum: 255 }
 
   # Reindex article class after changes
   after_commit :reindex_article
+  before_save :update_slug
 
   # This include is defined in the blockable.rb concern. Essentially, it
   # provides a nice interface to interact with the various types of article
@@ -46,6 +48,14 @@ class Article < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     new_record?
+  end
+
+  def update_slug
+    slug = title.parameterize unless title.blank?
+  end
+
+  def to_param
+    slug
   end
 
   def search_data
