@@ -24,7 +24,12 @@ $(document).ready(function() {
 			//Extracts and sets data that will be sent to the server
 			toData: function(){
 				var objData = {};
-				objData.text = this.$text_area.text();
+				//For safe storage, convert all <br> tags to new lines and remove all other tags
+				//http://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
+				objData.text = this.$text_area.html().trim()
+					.replace(/<br(\s*)\/*>/ig, '\n') // replace single line-breaks
+					.replace(/<[p|div]\s/ig, '\n$0') // add a line break before all div and p tags
+					.replace(/(<([^>]+)>)/ig, "");   // remove any remaining tags
 				this.setData(objData);
 			},
 
@@ -58,10 +63,8 @@ $(document).ready(function() {
 					//Display the text entered by the user before it was rendered into math
 					this_block.showRawText();
 
-					// $edit_button.show();
-
-					//Store the current text
-					$this.data('before', $this.text());
+					//Store the current html to be checked for changes when done editing
+					$this.data('before', $this.html());
 				});
 
 				//Events that indicate the contents of a contenteditable element may have changed
@@ -73,10 +76,15 @@ $(document).ready(function() {
 						$edit_button.hide();
 					}
 
-					//Check that the previously stored text is different after a paste/blur, otherwise we don't need to update the server data
-					if ($this.data('before') !== $this.text()) {
-						//update the current text in this element
-						$this.data('before', $this.text());
+					//Check that the previously stored html is different after a paste/blur, otherwise we don't need to update the server data
+					if ($this.data('before') !== $this.html()) {
+						//Allows line breaks to be saved as <br> tags - solves issue in chrome where new lines of contenteditable elements are surrounded with div tags
+						//http://stackoverflow.com/questions/6023307/dealing-with-line-breaks-on-contenteditable-div
+						var html_with_br = $this.html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,'');
+						$this.html(html_with_br);
+					
+						//update the current html associated with this element element
+						$this.data('before', html_with_br);
 
 						//Update the raw text entered by the user that will be sent to the server before mathjax modifies it
 						this_block.toData();
@@ -98,9 +106,12 @@ $(document).ready(function() {
 			//Converts the text and equations back into a form that can be edited by the user
 			showRawText: function(){
 				//Remove all elements from the text_area so that there are no elements that were created by mathjax
-				this.$text_area.empty();
-				//Show the raw text entered by the user before it was converted into mathjax
-				this.$text_area.text(this.getBlockData().text);
+				var savedText = this.getBlockData().text;
+				if (savedText){
+					this.$text_area.empty();
+					//Show the raw text entered by the user before it was converted into mathjax, adding back in the line breaks
+					this.$text_area.html(savedText.replace(/\n/gm,"<br>"));
+				}
 			},
 
 			addInlineMath: function($elements){
