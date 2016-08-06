@@ -52,7 +52,7 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   # Gives pages load times to spot bottle necks
-  gem 'rack-mini-profiler'
+  #gem 'rack-mini-profiler'
   gem 'annotate'
   #Use YARD for documentation generation
   gem 'yard'
