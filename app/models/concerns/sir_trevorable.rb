@@ -2,29 +2,13 @@ module SirTrevorable
   extend ActiveSupport::Concern
   included do
     def update_from_sir_trevor!(sir_trevor_content)
-      self.categorizations.destroy_all
-
-      self.blocks.destroy_all
-
-      json = JSON.parse(sir_trevor_content)
-      meta = json['meta']
-      data = json['data']
-      # If there are no blocks provided, we have to throw an error
-      return if data.empty?
-
-      data.each do |block|
-        self.create_block_from_sir_trevor(block)
-      end
-
-      self.update_metadata_from_sir_trevor(meta)
-    end
-
-    def update_metadata_from_sir_trevor(meta)
-      self.update_columns(title: meta['title'] || self.title)
-      meta['subcategories'].each do |subcategory_id|
-        self.categorizations.create(subcategory_id: subcategory_id)
-      end
-      return self.valid?
+		json = JSON.parse(sir_trevor_content)
+		#update title without overwriting an existing title with nil
+		self.update_columns(title: json['meta']['title'] || self.title)
+	
+		self.change_blocks(json['data'])
+		
+		self.change_subcategories(subcategory_ids: json['meta']['subcategories'])
     end
 
     def create_block_from_sir_trevor(block)

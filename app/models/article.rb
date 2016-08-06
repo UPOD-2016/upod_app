@@ -46,7 +46,36 @@ class Article < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
+	
+	#Replaces old blocks associated with this article with new ones
+	#@param block_json [json] the sir trevor form data representing each block
+	def change_blocks(block_json)
+	  #remove old blocks
+	  self.blocks.destroy_all
+	  block_json.each do |block|
+		self.create_block_from_sir_trevor(block)
+	  end
+    end
+  
+	#Replaces old subcategories associated with this article with new ones
+	#@param subcategory_ids [int[]] a hash of the subcategory_ids to associate with this article
+    def change_subcategories(subcategory_ids)
+	  #remove old sub-categories
+	  self.categorizations.destroy_all
+      subcategory_ids.each do |subcategory_id|
+        self.categorizations.create(subcategory_id: subcategory_id)
+      end
+    end
 
+	#Adds a contributor to this article
+	#@param User [User] the User that contributed to the article
+    def add_contributor(user_id)
+		contributor = Contributor.create(user_id: user_id, article_id: self.id)
+		return contributor.valid?
+	end
+	
+
+	
   def set_article_slug
     update_column(:slug, title.parameterize)
   end
