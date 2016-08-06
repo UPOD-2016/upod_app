@@ -8,7 +8,7 @@ module SirTrevorable
 	
 		self.change_blocks(json['data'])
 		
-		self.change_subcategories(subcategory_ids: json['meta']['subcategories'])
+		self.change_subcategories(json['meta']['subcategories'])
     end
 
     def create_block_from_sir_trevor(block)
