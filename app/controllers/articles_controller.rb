@@ -3,10 +3,10 @@ class ArticlesController < ApplicationController
   # Include check_user
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
   # GET /articles
   def index
-    redirect_to Category.find(params[:cat_id]) \
-      if category_provided_with_no_search_query?
+    redirect_to Category.find(params[:cat_id]) if cat_only?
 
     search_options = read_search_options
     search_options[:where] = { category: params[:cat_id] } \
@@ -69,7 +69,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def category_provided_with_no_search_query?
+  def cat_only?
     params[:cat_id].present? && params[:q].blank?
   end
 end
