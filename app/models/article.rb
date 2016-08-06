@@ -17,7 +17,7 @@
 class Article < ActiveRecord::Base
   has_many :blocks, class_name: 'ArticleBlock', foreign_key: :article_id
   has_many :contributions, class_name: 'Contributor', foreign_key: :article_id
-  has_many :categorizations
+  has_many :categorizations, dependent: :destroy
   has_many :subcategories, through: :categorizations
   has_many :searches
 
@@ -44,40 +44,32 @@ class Article < ActiveRecord::Base
     callbacks:    :async#,
     #conversions:  :converstions
 
-  extend FriendlyId
+    extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
-	
-	#Replaces old blocks associated with this article with new ones
-	#@param block_json [json] the sir trevor form data representing each block
-	def change_blocks(block_json)
-	  #remove old blocks
-	  self.blocks.destroy_all
-	  block_json.each do |block|
-		self.create_block_from_sir_trevor(block)
-	  end
-    end
-  
-	#Replaces old subcategories associated with this article with new ones
-	#@param subcategory_ids [int[]] a hash of the subcategory_ids to associate with this article
-    def change_subcategories(subcategory_ids)
-	  #remove old sub-categories
-	  self.categorizations.destroy_all
-      subcategory_ids.each do |subcategory_id|
-        self.categorizations.create(subcategory_id: subcategory_id)
-      end
-    end
 
-	#Adds a contributor to this article
-	#@param User [User] the User that contributed to the article
-    def add_contributor(user_id)
-		contributor = Contributor.create(user_id: user_id, article_id: self.id)
-		return contributor.valid?
-	end
-	
+  #Replaces old blocks associated with this article with new ones
+  #@param block_json [json] the sir trevor form data representing each block
+  def change_blocks(block_json)
+    #remove old blocks
+    self.blocks.destroy_all
+    block_json.each do |block|
+      self.create_block_from_sir_trevor(block)
+    end
+  end
 
-	
-  def set_article_slug
-    update_column(:slug, title.parameterize)
+  #Replaces old subcategories associated with this article with new ones
+  #@param subcategory_ids [int[]] a hash of the subcategory_ids to associate with this article
+  def change_subcategories(subcategory_ids)
+    #remove old sub-categories
+    self.categorizations.destroy_all
+    subcategory_ids.each do |subcategory_id|
+      self.categorizations.create(subcategory_id: subcategory_id)
+    end
+  end
+
+  def excerpt(length = 255)
+    text_blocks = self.blocks.select { |block| block.is_a? ArticleTextBlock }
+    return text_blocks.first.body.truncate(length: length)
   end
 
   def search_data
@@ -99,5 +91,9 @@ class Article < ActiveRecord::Base
 
   def get_specific_blocks(sym)
     blocks.select { |b| b.specific.respond_to? :sym }.map { |b| b.specic.sym }
+  end
+
+  def set_article_slug
+    update_column(:slug, title.parameterize)
   end
 end

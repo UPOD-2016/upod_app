@@ -32,8 +32,10 @@ class ArticleEquationBlock < ActiveRecord::Base
     equation_block_variables.each_with_index do |variable, index|
       variables[index] = variable.as_json
     end
-    { type: :equation,
-       data: { equation: equation, label: label, variables: variables } 
-	}
+
+    {
+      type: :equation,
+      data: { equation: equation, label: label, variables: variables }
+    }
   end
 end

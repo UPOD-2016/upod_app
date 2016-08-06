@@ -16,11 +16,8 @@
         <%= link_to article.title, article %>
       </h3>
       <h5>
-        <% @text = article.blocks.map{|b| b.specific.body if b.specific.respond_to?(:body)} %>
-        <% unless @text.blank? || @text.first.blank? %>
-          <%= @text.first.first(255) %>
-        <% end %>
-        <%= link_to '(Read More)', article %>
+        <%= article.excerpt %>
+        <%= link_to 'Read More', article %>
       </h5>
       <p>
         Part of:
