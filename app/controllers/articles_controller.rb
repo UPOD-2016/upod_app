@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1
   def show
-    @article = Article.find(params[:id].split('-').first)
+    @article = Article.find(params[:id])
   end
 
   # GET /articles/new
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_article
-    @article = Article.find(params[:id].split('-').first)
+    @article = Article.find(params[:id])
   end
 
   def category_provided_with_no_search_query?

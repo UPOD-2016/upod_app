@@ -11,9 +11,9 @@ module Admin
     # end
 
     # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Article.find_by!(slug: param)
-    # end
+    def find_resource(param)
+       Article.find_by!(slug: param)
+    end
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
@@ -24,6 +24,10 @@ module Admin
 
     def edit
       redirect_to edit_article_url
+    end
+
+    def show
+      redirect_to article_path
     end
 
   end

@@ -27,7 +27,8 @@ class Article < ActiveRecord::Base
 
   # Reindex article class after changes
   after_commit :reindex_article
-  before_save :update_slug
+  before_validation :set_article_slug,
+    prepend: true
 
   # This include is defined in the blockable.rb concern. Essentially, it
   # provides a nice interface to interact with the various types of article
@@ -46,16 +47,8 @@ class Article < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  def should_generate_new_friendly_id?
-    new_record?
-  end
-
-  def update_slug
-    @slug = title.blank? ? title : title.parameterize
-  end
-
-  def to_param
-    "#{id}-#{update_slug}"
+  def set_article_slug
+    update_column(:slug, title.parameterize)
   end
 
   def search_data

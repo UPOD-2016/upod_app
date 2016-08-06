@@ -26,7 +26,7 @@ class ArticleDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :title,
-    :blocks,
+    #:blocks,
     :contributions,
   ].freeze
 
@@ -35,7 +35,7 @@ class ArticleDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :title,
-    :blocks,
+    #:blocks,
     :contributions,
     #:created_at,
     #:updated_at,
