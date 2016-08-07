@@ -41,8 +41,7 @@ class Article < ActiveRecord::Base
   searchkick \
     searchable:   %i(title body name label),
     match:        :word_start,
-    callbacks:    :async,
-    conversions:  :convert
+    callbacks:    :async
 
     extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -85,8 +84,7 @@ class Article < ActiveRecord::Base
       name:         blocks.map{ |b| b.specific.name if b.specific.respond_to?(:name)},
       body:         blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)},
       label:        blocks.map{ |b| b.specific.label if b.specific.respond_to?(:label)},
-      category:     subcategories.map(&:category_id),
-      convert:  searches.group('query').count
+      category:     subcategories.map(&:category_id)
     }.as_json
   end
 
