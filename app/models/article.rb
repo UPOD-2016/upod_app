@@ -28,8 +28,7 @@ class Article < ActiveRecord::Base
 
   # Reindex article class after changes
   after_commit :reindex_article
-  before_validation :set_article_slug,
-    prepend: true
+  before_validation :set_article_slug, prepend: true
 
   # This include is defined in the blockable.rb concern. Essentially, it
   # provides a nice interface to interact with the various types of article
@@ -44,7 +43,7 @@ class Article < ActiveRecord::Base
     match:        :word_start,
     callbacks:    :async
 
-    extend FriendlyId
+  extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
   #Replaces old blocks associated with this article with new ones
@@ -58,7 +57,8 @@ class Article < ActiveRecord::Base
   end
 
   #Replaces old subcategories associated with this article with new ones
-  #@param subcategory_ids [int[]] a hash of the subcategory_ids to associate with this article
+  #@param subcategory_ids [int[]] a hash of the subcategory_ids to associate
+  # with this article
   def change_subcategories(subcategory_ids)
     #remove old sub-categories
     self.categorizations.destroy_all
@@ -70,9 +70,17 @@ class Article < ActiveRecord::Base
   # Returns the first n characters from the first text block in the article.
   def excerpt(length = 255)
     text_blocks = blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)}
-    return ActionView::Base.full_sanitizer.sanitize(text_blocks.try(:first).try(:first, length))
+    return ActionView::Base.full_sanitizer
+                           .sanitize(text_blocks.try(:first)
+                                                .try(:first, length)) + '...'
   end
 
+  # Returns the data that will be flattened and indexed by the elastic search
+  # core program
+  # title = The title from each article
+  # name = Name of each Category / Sub Category
+  # label = labels from all the diagrams and images
+  # category = id of the category which contain this article
   def search_data
     {
       title:        title,
@@ -85,10 +93,14 @@ class Article < ActiveRecord::Base
 
   private
 
+  # Uses search_data method to re-index and flatten the searchable data in the
+  # elastic search core
   def reindex_article
     Article.reindex
   end
 
+  # Sets the slug which acts as a more accessible URL for accessing articles.
+  # i.e article/21 becomes article/name-of-article-21
   def set_article_slug
     update_column(:slug, title.parameterize)
   end
