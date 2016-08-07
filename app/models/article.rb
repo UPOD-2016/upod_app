@@ -68,8 +68,12 @@ class Article < ActiveRecord::Base
   end
 
   def excerpt(length = 255)
-    text_blocks = self.blocks.select { |block| block.is_a? ArticleTextBlock }
-    return text_blocks.first.body.truncate(length: length)
+    text_blocks = get_specific_blocks(:body)
+    unless text_blocks.blank? || text_blocks.first.blank?
+      return text_blocks.first.body.truncate(length: length)
+    else
+      return ''
+    end
   end
 
   def search_data
