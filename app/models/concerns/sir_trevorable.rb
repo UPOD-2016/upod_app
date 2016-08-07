@@ -67,10 +67,10 @@ module SirTrevorable
     #
     # @todo Document method
     # @todo complete image handling
-    def create_from_sir_trevor(sir_trevor_content)
+    def create_from_sir_trevor(sir_trevor_content, user)
       article = Article.new
       article.save!(validate: false)
-      article.update_from_sir_trevor!(sir_trevor_content)
+      article.update_from_sir_trevor!(sir_trevor_content, user)
       article
     end
   end
