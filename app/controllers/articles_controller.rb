@@ -19,6 +19,11 @@ class ArticlesController < ApplicationController
     # GET /articles/1
     def show
       @article = Article.find(params[:id])
+      @related = @article.subcategories
+                         .all
+                         .map(&:id)
+                         .map{ |sc| Article.where(id: Categorization.select(:article_id)
+                                           .where(subcategory_id: sc)) }.delete(@article)
     end
 
     # GET /articles/new

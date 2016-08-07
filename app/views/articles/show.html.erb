@@ -11,4 +11,17 @@
       <%= render partial: "articles/blocks/#{block.slug}", locals: {block: block.specific} %>
     <% end %>
   </div>
+  <div class='col-md-12'>
+    <h3>
+      Related Pages:
+    </h3>
+    <% @related = Article.first(5) if @related.blank? %>
+      <ul>
+        <% @related.first(5).each do |article| %>
+          <li>
+            <%= link_to article.title, article %>
+          </li>
+        <% end %>
+      </ul>
+  </div>
 </div>
