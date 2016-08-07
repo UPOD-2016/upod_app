@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # ArticleEquationBlock is a more specific {ArticleBlock}. It represents
 # an equation which has many {EquationBlockVariable} which encapsulate
 # a mathematical expression with descriptions of variables that it includes.

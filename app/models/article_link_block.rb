@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # ArticleLinkBlock is a more specific {ArticleBlock}.
 # It contains an id, a source and a video id. ArticleLinkBlock acts as an
 # article block. If more video formats are supported in the future, this class

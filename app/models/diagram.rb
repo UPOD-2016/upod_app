@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A diagram has many {ArticleDiagramBlock}. This is so a diagram can be reused
 # in many articles.
 # @see ArticleDiagramBlock

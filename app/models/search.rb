@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ######
 #
 # This class holds converstion rates.  This means if a user searches for

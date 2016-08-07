@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A contributor is a {User} who has edited an article.
 # @see User
 #

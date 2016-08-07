@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # HeadingTextBlock is a subclass of {ArticleTextBlock}
 # When rendered, its body is intended to be displayed as a header.
 #

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # SubCategories have a one-to-one connection with a category.
 # Categories can have multiple subcategories. Articles fall under
 # subcategories and categories for ease of searching for them and

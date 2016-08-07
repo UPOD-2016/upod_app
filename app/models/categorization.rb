@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Categorizations hold the relations between articles and their subcategories.
 # It contains a list of articles and the subcategories those articles
 # fall under.

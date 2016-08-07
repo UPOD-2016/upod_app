@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # An image can belong to many {ArticleImageBlock} so that images can be reused
 # throughout articles. The uploader used is {SirTrevorImageUploader}.
 # @see ArticleImageBlock

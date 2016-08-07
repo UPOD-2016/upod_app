@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # EquationTextBlock is a subclass of {ArticleTextBlock}
 # When rendered, some of its body may contain
 # mathematical expressions to be typeset

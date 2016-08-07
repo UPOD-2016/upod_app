@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Categories have many subcategories. These categories and Subcategories are
 # the organization of all the articles. Articles are sorted under categories
 # and subcategories. When editor attempts to remove a category, the subcategory
