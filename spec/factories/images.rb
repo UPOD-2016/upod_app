@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: images
@@ -10,6 +11,6 @@
 
 FactoryGirl.define do
   factory :image do
-    body "MyString"
+    body 'MyString'
   end
 end

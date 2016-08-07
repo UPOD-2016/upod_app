@@ -1,14 +1,13 @@
-require "administrate/field/base"
+# frozen_string_literal: true
+require 'administrate/field/base'
 
 class CarrierwaveField < Administrate::Field::Base
-  def url
-    data.url
-  end
+  delegate :url, to: :data
 
   def thumbnail
     data.url(:thumbnail)
   end
-  
+
   def to_s
     data
   end

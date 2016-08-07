@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ImageDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +15,7 @@ class ImageDashboard < Administrate::BaseDashboard
     id: Field::Number,
     body: Field::Image,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -26,7 +27,7 @@ class ImageDashboard < Administrate::BaseDashboard
     #:article_image_blocks,
     :id,
     :body,
-    :created_at,
+    :created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +37,7 @@ class ImageDashboard < Administrate::BaseDashboard
     :article_image_blocks,
     :body,
     :created_at,
-    :updated_at,
+    :updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -44,7 +45,7 @@ class ImageDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :article_image_blocks,
-    :body,
+    :body
   ].freeze
 
   # Overwrite this method to customize how images are displayed

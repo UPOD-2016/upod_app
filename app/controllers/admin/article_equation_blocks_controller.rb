@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
 module Admin
@@ -17,6 +18,5 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
-
   end
 end

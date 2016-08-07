@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
 module Admin
@@ -13,7 +14,7 @@ module Admin
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   ArticleTextBlock.find_by!(slug: param)
-    #end
+    # end
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
@@ -25,7 +26,5 @@ module Admin
     def edit
       redirect_to edit_article_url
     end
-
-
   end
 end

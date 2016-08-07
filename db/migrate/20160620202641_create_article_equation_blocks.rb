@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateArticleEquationBlocks < ActiveRecord::Migration
   def change
     create_table :article_equation_blocks do |t|

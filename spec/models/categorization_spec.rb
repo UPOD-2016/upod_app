@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll
 #
 # == Schema Information
@@ -14,5 +15,4 @@
 require 'rails_helper'
 
 RSpec.describe Categorization, type: :model do
-
 end

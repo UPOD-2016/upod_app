@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Admin
   class ArticleLinkBlocksController < Admin::ApplicationController
     # To customize the behavior of this controller,
@@ -15,6 +16,5 @@ module Admin
 
     # See https://administrate-docs.herokuapp.com/customizing_controller_actions
     # for more information
-
   end
 end

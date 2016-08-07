@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class CategoryDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -16,7 +17,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     description: Field::String,
-    image: Field::CarrierwaveField,
+    image: Field::CarrierwaveField
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -40,7 +41,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     #:updated_at,
     :description,
     :subcategories,
-    :image,
+    :image
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -50,7 +51,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     :name,
     :description,
     :subcategories,
-    :image,
+    :image
   ].freeze
 
   # Overwrite this method to customize how categories are displayed

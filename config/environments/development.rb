@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -41,5 +42,4 @@ Rails.application.configure do
 
   # Allow vagrant to connect to console
   config.web_console.whitelisted_ips = '10.0.2.2'
-
 end

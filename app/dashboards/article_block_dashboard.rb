@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleBlockDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -13,7 +14,7 @@ class ArticleBlockDashboard < Administrate::BaseDashboard
     actable: Field::Polymorphic,
     article: Field::BelongsTo,
     id: Field::Number,
-    position: Field::Number,
+    position: Field::Number
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -25,7 +26,7 @@ class ArticleBlockDashboard < Administrate::BaseDashboard
     :id,
     :article,
     :position,
-    :actable,
+    :actable
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -34,7 +35,7 @@ class ArticleBlockDashboard < Administrate::BaseDashboard
     :id,
     :article,
     :position,
-    :actable,
+    :actable
   ].freeze
 
   # FORM_ATTRIBUTES

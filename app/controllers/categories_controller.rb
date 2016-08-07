@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Controller for Category Display and creation
 class CategoriesController < ApplicationController
   def new

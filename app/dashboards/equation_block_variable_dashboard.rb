@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class EquationBlockVariableDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -16,7 +17,7 @@ class EquationBlockVariableDashboard < Administrate::BaseDashboard
     description: Field::String,
     article_equation_block_id: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -29,7 +30,7 @@ class EquationBlockVariableDashboard < Administrate::BaseDashboard
     :variable,
     :description,
     :article_equation_block_id,
-    :article_equation_block,
+    :article_equation_block
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -51,7 +52,7 @@ class EquationBlockVariableDashboard < Administrate::BaseDashboard
     :variable,
     :description,
     :article_equation_block_id,
-    :article_equation_block,
+    :article_equation_block
   ].freeze
 
   # Overwrite this method to customize how contributors are displayed

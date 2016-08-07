@@ -1,7 +1,8 @@
-require "administrate/field/base"
+# frozen_string_literal: true
+require 'administrate/field/base'
 
 class PasswordField < Administrate::Field::Base
   def to_s
-    #data
+    # data
   end
 end

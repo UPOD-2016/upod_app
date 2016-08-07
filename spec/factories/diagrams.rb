@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: diagrams
@@ -11,7 +12,7 @@
 
 FactoryGirl.define do
   factory :diagram do
-    body "MyText"
-    label "MyString"
+    body 'MyText'
+    label 'MyString'
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateArticleConstantBlocks < ActiveRecord::Migration
   def change
     create_table :article_constant_blocks do |t|

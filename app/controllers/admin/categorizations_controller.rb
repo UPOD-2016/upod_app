@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
 module Admin
@@ -25,6 +26,5 @@ module Admin
     def edit
       redirect_to edit_article_url
     end
-
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Image controller handles creation of images.
 class ImagesController < ApplicationController
   def create

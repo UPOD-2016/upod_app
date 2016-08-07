@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateArticleDiagramBlocks < ActiveRecord::Migration
   def change
     create_table :article_diagram_blocks do |t|

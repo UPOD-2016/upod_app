@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,12 +11,12 @@ class ArticleDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    blocks: Field::HasMany.with_options(class_name: "ArticleBlock"),
-    contributions: Field::HasMany.with_options(class_name: "Contributor"),
+    blocks: Field::HasMany.with_options(class_name: 'ArticleBlock'),
+    contributions: Field::HasMany.with_options(class_name: 'Contributor'),
     id: Field::Number,
     title: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -27,7 +28,7 @@ class ArticleDashboard < Administrate::BaseDashboard
     :id,
     :title,
     #:blocks,
-    :contributions,
+    :contributions
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -47,7 +48,7 @@ class ArticleDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     #:blocks,
     #:contributions,
-    :title,
+    :title
   ].freeze
 
   # Overwrite this method to customize how articles are displayed

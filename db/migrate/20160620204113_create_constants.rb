@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateConstants < ActiveRecord::Migration
   def change
     create_table :constants do |t|

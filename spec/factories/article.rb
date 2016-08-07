@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: articles
@@ -9,7 +10,7 @@
 #
 
 FactoryGirl.define do
-	factory :article do
-		title "This is a test article"
-	end
+  factory :article do
+    title 'This is a test article'
+  end
 end

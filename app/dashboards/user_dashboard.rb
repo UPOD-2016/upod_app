@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class UserDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,7 +11,7 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    contributions: Field::HasMany.with_options(class_name: "Contributor"),
+    contributions: Field::HasMany.with_options(class_name: 'Contributor'),
     id: Field::Number,
     email: Field::String,
     encrypted_password: Field::String,
@@ -25,7 +26,7 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     password: PasswordField,
-    password_confirmation: PasswordField,
+    password_confirmation: PasswordField
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -86,7 +87,6 @@ class UserDashboard < Administrate::BaseDashboard
   # end
 
   def display_resource(user)
-  user.email
+    user.email
   end
-
 end

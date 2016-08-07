@@ -1,5 +1,5 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
-
   devise_for :users
   get 'categories/new'
 
@@ -20,14 +20,14 @@ Rails.application.routes.draw do
     resources :diagrams
     resources :images
 
-    root to: "articles#index"
+    root to: 'articles#index'
   end
   get '/about' => 'static_pages#about'
   root to: 'static_pages#home'
   resources :articles
   resources :article_diagram_blocks, only: :show
   resources :images, only: :create
-  #categories
+  # categories
   resources :categories
   resources :subcategories
   resources :categorizations

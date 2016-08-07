@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class DiagramDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -15,7 +16,7 @@ class DiagramDashboard < Administrate::BaseDashboard
     body: Field::Text,
     label: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -27,7 +28,7 @@ class DiagramDashboard < Administrate::BaseDashboard
     :id,
     :body,
     #:article_diagram_blocks,
-    :label,
+    :label
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -47,7 +48,7 @@ class DiagramDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     #:article_diagram_blocks,
     :body,
-    :label,
+    :label
   ].freeze
 
   # Overwrite this method to customize how diagrams are displayed

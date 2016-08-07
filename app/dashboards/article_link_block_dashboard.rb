@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleLinkBlockDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -15,7 +16,7 @@ class ArticleLinkBlockDashboard < Administrate::BaseDashboard
     article_block: Field::HasOne,
     id: Field::Number,
     source: Field::String,
-    video_id: Field::String,
+    video_id: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -29,7 +30,7 @@ class ArticleLinkBlockDashboard < Administrate::BaseDashboard
     :video_id,
     #:actable,
     :article,
-    :article_block,
+    :article_block
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -40,7 +41,7 @@ class ArticleLinkBlockDashboard < Administrate::BaseDashboard
     :video_id,
     #:actable,
     :article,
-    :article_block,
+    :article_block
   ].freeze
 
   # FORM_ATTRIBUTES

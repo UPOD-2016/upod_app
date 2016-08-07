@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class SubcategoryDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -15,7 +16,7 @@ class SubcategoryDashboard < Administrate::BaseDashboard
     name: Field::String,
     description: Field::Text,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -27,7 +28,7 @@ class SubcategoryDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :category,
-    :description,
+    :description
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -47,7 +48,7 @@ class SubcategoryDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :name,
     :description,
-    :category,
+    :category
   ].freeze
 
   # Overwrite this method to customize how subcategories are displayed
@@ -58,7 +59,6 @@ class SubcategoryDashboard < Administrate::BaseDashboard
   # end
 
   def display_resource(subcategory)
-  subcategory.name
+    subcategory.name
   end
-
 end

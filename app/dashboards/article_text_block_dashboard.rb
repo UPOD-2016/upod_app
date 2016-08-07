@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleTextBlockDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +15,7 @@ class ArticleTextBlockDashboard < Administrate::BaseDashboard
     article: Field::BelongsTo,
     article_block: Field::HasOne,
     id: Field::Number,
-    body: Field::Text,
+    body: Field::Text
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -26,7 +27,7 @@ class ArticleTextBlockDashboard < Administrate::BaseDashboard
     :id,
     :article,
     #:actable,
-    :article_block,
+    :article_block
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,7 +37,7 @@ class ArticleTextBlockDashboard < Administrate::BaseDashboard
     :article,
     :body,
     #:actable,
-    :article_block,
+    :article_block
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -46,7 +47,7 @@ class ArticleTextBlockDashboard < Administrate::BaseDashboard
     #:actable,
     :article,
     #:article_block,
-    :body,
+    :body
   ].freeze
 
   # Overwrite this method to customize how article text blocks are displayed

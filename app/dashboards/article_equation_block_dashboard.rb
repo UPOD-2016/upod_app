@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleEquationBlockDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -16,7 +17,7 @@ class ArticleEquationBlockDashboard < Administrate::BaseDashboard
     equation_block_variables: Field::HasMany,
     id: Field::Number,
     equation: Field::Text,
-    label: Field::String,
+    label: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -31,7 +32,7 @@ class ArticleEquationBlockDashboard < Administrate::BaseDashboard
     :equation_block_variables,
     #:actable,
     :article,
-    :article_block,
+    :article_block
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -43,7 +44,7 @@ class ArticleEquationBlockDashboard < Administrate::BaseDashboard
     :equation_block_variables,
     :article,
     #:actable,
-    :article_block,
+    :article_block
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -54,7 +55,7 @@ class ArticleEquationBlockDashboard < Administrate::BaseDashboard
     #:article,
     #:article_block,
     :equation,
-    :label,
+    :label
   ].freeze
 
   # Overwrite this method to customize how article equation blocks are displayed

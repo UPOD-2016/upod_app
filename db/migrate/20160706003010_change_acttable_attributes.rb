@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChangeActtableAttributes < ActiveRecord::Migration
   def change
     change_column_null :article_blocks, :actable_id, false

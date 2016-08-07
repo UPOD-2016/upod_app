@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: article_blocks
@@ -10,12 +11,11 @@
 #
 
 FactoryGirl.define do
-	factory :article_block, class: ArticleTextBlock do
-		article
-	end
+  factory :article_block, class: ArticleTextBlock do
+    article
+  end
 
-	factory :text_block, parent: :article_block, class: ArticleTextBlock  do
-		body "this is a text block body"
-	end
+  factory :text_block, parent: :article_block, class: ArticleTextBlock do
+    body 'this is a text block body'
+  end
 end
-

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # The article diagram block controller is used
 # to render diagrams containing potentially unsafe javascript
 # so that the page can be more safely included in a sandboxed iframe
@@ -25,8 +26,9 @@ class ArticleDiagramBlocksController < ApplicationController
 
   def get_article_code
     return 'This diagram is not available' if @article_diagram_block.nil?
-    return @article_diagram_block.code
+    @article_diagram_block.code
   end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_article_diagram_block
     # Get the record if it exists

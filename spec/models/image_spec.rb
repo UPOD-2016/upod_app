@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # author: Michael Roher, Kieran O'Driscoll, Steven Swartz
 #
@@ -14,9 +15,7 @@
 require 'rails_helper'
 
 RSpec.describe Image, type: :model do
-
   it do
-  should have_many :article_image_blocks
+    should have_many :article_image_blocks
   end
-
 end

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class CategorizationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -15,7 +16,7 @@ class CategorizationDashboard < Administrate::BaseDashboard
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    description: Field::String,
+    description: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -47,7 +48,7 @@ class CategorizationDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :article,
     :subcategory,
-    :description,
+    :description
   ].freeze
 
   # Overwrite this method to customize how categorizations are displayed

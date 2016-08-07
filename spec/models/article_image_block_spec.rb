@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # author: Michael Roher, Kieran O'Driscoll, Steven Swartz
 #

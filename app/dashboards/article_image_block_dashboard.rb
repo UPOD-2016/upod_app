@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 # author: Kieran O'Driscoll(Organization and overriding methods)
 
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class ArticleImageBlockDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -17,7 +18,7 @@ class ArticleImageBlockDashboard < Administrate::BaseDashboard
     id: Field::Number,
     image_id: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -31,7 +32,7 @@ class ArticleImageBlockDashboard < Administrate::BaseDashboard
     :image,
     #:actable,
     :article,
-    :article_block,
+    :article_block
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

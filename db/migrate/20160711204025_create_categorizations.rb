@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateCategorizations < ActiveRecord::Migration
   def change
     create_table :categorizations do |t|
