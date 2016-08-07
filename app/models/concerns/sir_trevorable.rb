@@ -14,28 +14,36 @@ module SirTrevorable
     end
 
     def create_block_from_sir_trevor(block)
+      data = block['data']
       case block['type'].to_sym
 
       when :text
-        self.create_text_block(body: block['data']['text'])
+        self.create_text_block(body: data['text'])
       when :heading
-        self.create_heading_text_block(body: block['data']['text'])
+        self.create_heading_text_block(body: data['text'])
       when :equation_text
         #replace new line characters with line break html tags
-        self.create_equation_text_block(body: block['data']['text'].gsub(/\n/,"<br>").strip)
+        self.create_equation_text_block(body: data['text'].gsub(/\n/,"<br>").strip)
       when :image
-        uploaded_image = Image.find(block['data']['id'])
+        if (data.key?("id"))
+          uploaded_image = Image.find(data['id'])
+        else
+          absolute_path = data['file']['url']
+          extension = File.extname(absolute_path)
+          filename = File.basename(absolute_path, extension)
+          uploaded_image = Image.find_by(body_secure_token: filename)
+        end
         self.create_image_block(image: uploaded_image)
       when :video
-        self.create_link_block(source: block['data']['source'], video_id: block['data']['remote_id'])
+        self.create_link_block(source: data['source'], video_id: data['remote_id'])
       when :equation
         equation_block = self.create_equation_block(
-          equation: block['data']['equation'],
-          label: block['data']['label']
+          equation: data['equation'],
+          label: data['label']
         )
 
         #add any variables associated with this equation
-        variables = block['data']['variables']
+        variables = data['variables']
         unless variables.nil?
           variables.keys.each do |key|
             variable = EquationBlockVariable.new(

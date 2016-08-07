@@ -27,6 +27,7 @@ class ArticleImageBlock < ActiveRecord::Base
 
   def as_json
     {
+      id: self.image.id,
       type: :image,
       data: {
         file: {

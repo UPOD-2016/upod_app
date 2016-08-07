@@ -1,5 +1,10 @@
 <% title "#{@article.title}" %>
 <div class="container">
+  <div class="pull-right">
+    <% if user_signed_in? %>
+      <%= link_to "Edit", edit_article_path(@article), class: 'btn btn-default' %>
+    <% end %>
+  </div>
   <h1 class="page-header"><%= @article.title %></h1>
   <div class="col-md-12">
     <% @article.blocks.each do |block| %>
