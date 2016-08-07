@@ -70,7 +70,7 @@ class Article < ActiveRecord::Base
   def excerpt(length = 255)
     text_blocks = get_specific_blocks(:body)
     unless text_blocks.blank? || text_blocks.first.blank?
-      return text_blocks.first.body.truncate(length: length)
+      return text_blocks.first.truncate(length: length)
     else
       return ''
     end
