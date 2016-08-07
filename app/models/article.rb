@@ -71,7 +71,7 @@ class Article < ActiveRecord::Base
     text_blocks = blocks.map { |b| b.specific.body if b.specific.respond_to?(:body) }
     ActionView::Base.full_sanitizer
                     .sanitize(text_blocks.try(:first)
-                                                .try(:first, length)) + '...'
+                                                .try(:first, length))
   end
 
   # Returns the data that will be flattened and indexed by the elastic search
