@@ -68,14 +68,7 @@ class Article < ActiveRecord::Base
 
   def excerpt(length = 255)
     text_blocks = blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)}
-    unless text_blocks.blank? || text_blocks.first.blank?
-      # I cannot get this to work at all.  Looked at the documentation
-      # and tried a few things but decided to just give up on truncate and
-      # make my own.  Tried:
-      # return truncate(text_blocks.first, length: length)
-      # return text_blocks.first.truncate(length: length)
-      return text_blocks.first.first(length)
-    end
+    return text_blocks.try(:first).try(:first, length)
   end
 
   def search_data
