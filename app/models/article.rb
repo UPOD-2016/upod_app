@@ -14,6 +14,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 class Article < ActiveRecord::Base
   has_many :blocks, class_name: 'ArticleBlock', foreign_key: :article_id
   has_many :contributions, class_name: 'Contributor', foreign_key: :article_id
@@ -66,9 +67,10 @@ class Article < ActiveRecord::Base
     end
   end
 
+  # Returns the first n characters from the first text block in the article.
   def excerpt(length = 255)
     text_blocks = blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)}
-    return text_blocks.try(:first).try(:first, length)
+    return ActionView::Base.full_sanitizer.sanitize(text_blocks.try(:first).try(:first, length))
   end
 
   def search_data
