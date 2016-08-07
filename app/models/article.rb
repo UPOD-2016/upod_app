@@ -41,8 +41,8 @@ class Article < ActiveRecord::Base
   searchkick \
     searchable:   %i(title body name label),
     match:        :word_start,
-    callbacks:    :async#,
-    #conversions:  :converstions
+    callbacks:    :async,
+    conversions:  :convert
 
     extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -68,22 +68,25 @@ class Article < ActiveRecord::Base
   end
 
   def excerpt(length = 255)
-    text_blocks = get_specific_blocks(:body)
+    text_blocks = blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)}
     unless text_blocks.blank? || text_blocks.first.blank?
-      return text_blocks.first.truncate(length: length)
-    else
-      return ''
+      # I cannot get this to work at all.  Looked at the documentation
+      # and tried a few things but decided to just give up on truncate and
+      # make my own.  Tried:
+      # return truncate(text_blocks.first, length: length)
+      # return text_blocks.first.truncate(length: length)
+      return text_blocks.first.first(length)
     end
   end
 
   def search_data
     {
       title:        title,
-      name:         get_specific_blocks(:name),
-      body:         get_specific_blocks(:body),
-      label:        get_specific_blocks(:label),
-      category:     subcategories.map(&:category_id)#,
-      #conversions:  searches.group('query').count
+      name:         blocks.map{ |b| b.specific.name if b.specific.respond_to?(:name)},
+      body:         blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)},
+      label:        blocks.map{ |b| b.specific.label if b.specific.respond_to?(:label)},
+      category:     subcategories.map(&:category_id),
+      convert:  searches.group('query').count
     }.as_json
   end
 
@@ -91,10 +94,6 @@ class Article < ActiveRecord::Base
 
   def reindex_article
     Article.reindex
-  end
-
-  def get_specific_blocks(sym)
-    blocks.select { |b| b.specific.respond_to? :sym }.map { |b| b.specic.sym }
   end
 
   def set_article_slug
