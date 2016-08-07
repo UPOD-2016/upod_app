@@ -17,13 +17,9 @@
       </strong>
     </h4>
     <p>
-      <% @text = article.blocks.map{ |b| b.specific.body if b.specific.respond_to?(:body)} %>
-      <% unless @text.blank? || @text.first.blank? %>
-        <%= @text.first.first(75) << '...'  %>
-      <% else %>
-        ...
-      <% end %>
-    <hr>
+      <%= article.excerpt(75) %>...
+      <%= link_to "(Read More)", article %>
+    </p>
   </div>
   <% end %>
 
