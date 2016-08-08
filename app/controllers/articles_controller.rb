@@ -20,13 +20,10 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   def show
     @article = Article.find(params[:id])
-    @related = @article.subcategories
-                       .all
-                       .map(&:id)
-                       .map do |sc|
-      Article.where(id: Categorization.select(:article_id)
-                            .where(subcategory_id: sc))
-    end.delete(@article)
+    search_options = read_search_options
+    search_options[:operator] = 'or'
+    query = @article.title.split(' ').select{|w| w.length >= 4} * (' ')
+    @related = Article.search query, search_options
   end
 
   # GET /articles/new
