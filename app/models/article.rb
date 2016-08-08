@@ -27,7 +27,6 @@ class Article < ActiveRecord::Base
 
   # Reindex article class after changes
   after_commit :reindex_article
-  before_validation :set_article_slug, prepend: true
 
   # This include is defined in the blockable.rb concern. Essentially, it
   # provides a nice interface to interact with the various types of article
@@ -42,8 +41,18 @@ class Article < ActiveRecord::Base
     match:        :word_start,
     callbacks:    :async
 
-  extend FriendlyId
-  friendly_id :title, use: [:slugged, :finders]
+    extend FriendlyId
+    friendly_id :slug_candidates, use: [:slugged, :finders]
+
+# Try building a slug based on the following fields in
+# increasing order of specificity.
+  def slug_candidates
+    [
+      :title,
+      [:title, :id],
+    ]
+  end
+
 
   # Replaces old blocks associated with this article with new ones
   # @param block_json [json] the sir trevor form data representing each block
@@ -98,9 +107,5 @@ class Article < ActiveRecord::Base
     Article.reindex
   end
 
-  # Sets the slug which acts as a more accessible URL for accessing articles.
-  # i.e article/21 becomes article/name-of-article-21
-  def set_article_slug
-    update_column(:slug, title.parameterize)
-  end
+
 end

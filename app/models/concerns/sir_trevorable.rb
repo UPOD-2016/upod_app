@@ -12,6 +12,7 @@ module SirTrevorable
       change_subcategories(json['meta']['subcategories'])
 
       contributions.where(user: user).first_or_create
+      self.save!
     end
 
     def create_block_from_sir_trevor(block)
