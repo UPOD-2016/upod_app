@@ -57,8 +57,8 @@ $(document).ready(function() {
 				var dataObj = {}
 				dataObj.code = this.$code_area.val();
 				dataObj.caption = this.$caption.val();
-				dataObj.width = this.$height.val();
-				dataObj.height = this.$width.val();
+				dataObj.width = this.$width.val();
+				dataObj.height = this.$height.val();
 				this.setData(dataObj);
 			},
 

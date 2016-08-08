@@ -67,11 +67,12 @@ class ArticleLinkBlock < ActiveRecord::Base
   # Used by SirTrevor for editing this block
   def as_json
     {
-      type: :link,
+	  #sir trevor's default field names for video block must be used
+      type: :video,
       data:
       {
         source: source,
-        video_id: video_id,
+        remote_id: video_id,
         url: direct_url
       }
     }
