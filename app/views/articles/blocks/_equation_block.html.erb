@@ -1,10 +1,10 @@
 
-<div class='equation-block', align=center>
-	<div class='equation block-equation', align=center, style="font-size:2em;">
+<div class='equation-block' style="text-align:center;">
+	<div class='equation block-equation', style="font-size:2em;">
 		<script type='math/asciimath'><%= block.equation %></script>
 	</div>
 	<span class='equation-label', style="font-size:1.2em;"><%= block.label %></span>
-	<div class='variables', align=center, style="font-size:1.2em;">
+	<div class='variables', style="font-size:1.2em;">
 		<% block.equation_block_variables.each do |var| %>
 			<span class='equation variable-equation', style="font-size:1.2em;">
 				<script type='math/asciimath'><%= var.variable %></script> = <%= var.description %>
