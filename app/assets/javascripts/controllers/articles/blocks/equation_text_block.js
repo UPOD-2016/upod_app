@@ -24,12 +24,10 @@ $(document).ready(function() {
 			//Extracts and sets data that will be sent to the server
 			toData: function(){
 				var objData = {};
-				//For safe storage, convert all <br> tags to new lines and remove all other tags
+				//Replace \n tags with <br>, potentially leaving other html tags which sir trevor should safely display
 				//http://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
 				objData.text = this.$text_area.html().trim()
 					.replace(/<br(\s*)\/*>/ig, '\n') // replace single line-breaks
-					.replace(/<[p|div]\s/ig, '\n$0') // add a line break before all div and p tags
-					.replace(/(<([^>]+)>)/ig, "");   // remove any remaining tags
 				this.setData(objData);
 			},
 
