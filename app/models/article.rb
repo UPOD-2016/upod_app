@@ -25,7 +25,6 @@ class Article < ActiveRecord::Base
   # Validates the title and it's length
   validates :title, presence: true, length: { maximum: 255 }
 
-  before_save :update_slug
   # Reindex article class after changes
   after_commit :reindex_article
 
@@ -42,14 +41,17 @@ class Article < ActiveRecord::Base
     match:        :word_start,
     callbacks:    :async
 
-# sets the slug and the URL for the article. Makes it more readable to humans.
-    def update_slug
-      self.slug = title.blank? ? title : title.parameterize
-    end
+    extend FriendlyId
+    friendly_id :slug_candidates, use: [:slugged, :finders]
 
-    def to_param
-      "#{id}-#{title.parameterize}"
-    end
+# Try building a slug based on the following fields in
+# increasing order of specificity.
+  def slug_candidates
+    [
+      :title,
+      [:title, :id],
+    ]
+  end
 
 
   # Replaces old blocks associated with this article with new ones
