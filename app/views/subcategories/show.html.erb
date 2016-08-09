@@ -10,17 +10,19 @@
   <div class="container" style="text-align:left;padding:10px;">
 
   <% @subcategory.articles.each do |article| %>
-  <div class="col-sm-4" style="padding:10px;" >
+  <div class="col-sm-4" >
+    <div class="intrinsic-container">
     <h4>
       <strong style="text-align:center;">
         <%= link_to article.title, article %>
       </strong>
     </h4>
-    <p>
-      <%= article.excerpt(54) %>...
+    <span>
+      <%= article.excerpt(255) %>...
       <%= link_to "(Read More)", article %>
-    </p>
-    <hr>
+    </span>
+    </div>
+    <hr>  
   </div>
   <% end %>
 
