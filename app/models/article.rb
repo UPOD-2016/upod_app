@@ -57,22 +57,28 @@ class Article < ActiveRecord::Base
   # Replaces old blocks associated with this article with new ones
   # @param block_json [json] the sir trevor form data representing each block
   def change_blocks(block_json)
-    # remove old blocks
-    blocks.destroy_all
-    block_json.each do |block|
-      create_block_from_sir_trevor(block)
-    end
+
+	#Removal of old blocks is rolled back on errors
+	Article.transaction do
+		blocks.destroy_all
+		block_json.each do |block|
+		  create_block_from_sir_trevor(block)
+		end
+	end
   end
 
   # Replaces old subcategories associated with this article with new ones
   # @param subcategory_ids [int[]] a hash of the subcategory_ids to associate
   # with this article
   def change_subcategories(subcategory_ids)
-    # remove old sub-categories
-    categorizations.destroy_all
-    subcategory_ids.each do |subcategory_id|
-      categorizations.create(subcategory_id: subcategory_id)
-    end
+    
+	Article.transaction do
+		#Removal of old categories are rolled back on errors
+		categorizations.destroy_all
+		subcategory_ids.each do |subcategory_id|
+		  categorizations.create(subcategory_id: subcategory_id)
+		end
+	end
   end
 
   # Returns the first n characters from the first text block in the article.

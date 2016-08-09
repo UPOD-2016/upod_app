@@ -4,15 +4,18 @@ module SirTrevorable
   included do
     def update_from_sir_trevor!(sir_trevor_content, user)
       json = JSON.parse(sir_trevor_content)
-      # update title without overwriting an existing title with nil
-      update_columns(title: json['meta']['title'] || title)
+     
+	 # update title without overwriting an existing title with nil
+	  Article.transaction do
+		  update_columns(title: json['meta']['title'] || title)
 
-      change_blocks(json['data'])
+		  change_blocks(json['data'])
 
-      change_subcategories(json['meta']['subcategories'])
-
-      contributions.where(user: user).first_or_create
-      self.save!
+		  change_subcategories(json['meta']['subcategories'])
+	
+		  contributions.where(user: user).first_or_create
+		  self.save!
+	  end
     end
 
     def create_block_from_sir_trevor(block)
