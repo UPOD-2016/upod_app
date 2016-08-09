@@ -1,12 +1,12 @@
 
 <div class='equation-block' style="text-align:center;">
-	<div class='equation block-equation', style="font-size:1.5em;">
+	<div class='equation block-equation', style="font-size:1.8vw;">
 		<script type='math/asciimath'><%= block.equation %></script>
 	</div>
-	<span class='equation-label', style="font-size:1.3em;"><%= block.label %></span>
-	<div class='variables', style="font-size:1.2em;">
+	<span class='equation-label', style="font-size:1.4vw;"><%= block.label %></span>
+	<div class='variables', style="font-size:1.4vw;">
 		<% block.equation_block_variables.each do |var| %>
-			<span class='equation variable-equation', style="font-size:1.2em;">
+			<span class='equation variable-equation', style="font-size:1.4vw;">
 				<script type='math/asciimath'><%= var.variable %></script> = <%= var.description %>
 			</span>
 		<% end %>

@@ -2,22 +2,23 @@
 <div class="container">
   <div class="jumbotron">
     <h2><%= @category.name %></h2>
-    <span>
+    <p style="text-align:left;">
     <%= @category.description %>
-    </span>
+    </p>
   </div>
   <hr>
-  <div class="container" style="text-align:center;padding:10px;">
-
+  <div class="container" style="padding:10px;">
 	<% @category.subcategories.each do |subcategory| %>
-	<div class="col-sm-4" style="padding:15px;" >
+	<div class="col-sm-4" >
+	  <div class="intrinsic-container">
 		<h4><strong>
 		<%= link_to subcategory.name, subcategory %>
 		</strong></h4>
-		<span>
+		<p>
 		<%= subcategory.description %>
-		</span>
-		<hr>
+		</p>
+	  </div>
+	  <hr>
 	</div>
 	<% end %>
 
