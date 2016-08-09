@@ -23,7 +23,7 @@ class ArticleEquationBlock < ActiveRecord::Base
 
   # Validates the length and presence of equation block and description
   validates :equation, presence: true, length: { maximum: 65_535 }
-  validates :label, length: { maximum: 255 }, presence: true
+  validates :label, length: { maximum: 255 }
 
   # Used by SirTrevor for editing this block
   # Get each variable associated with this equation and add each of their
