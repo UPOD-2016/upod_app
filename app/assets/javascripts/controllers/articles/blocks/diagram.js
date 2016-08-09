@@ -16,6 +16,8 @@ $(document).ready(function() {
 	var MAX_HEIGHT = 1080;
 	var DEFAULT_WIDTH = 800;
 	var MAX_WIDTH = 1920;
+	var MAX_CAPTION_LEN = 255;
+	var MAX_DIAGRAM_LEN = 65535;
 
     SirTrevor.Blocks.Diagram = (function() {
 	
@@ -66,7 +68,7 @@ $(document).ready(function() {
 			   return "<div class='st-svg-inputs'> \
 					<div class='form-group'> \
   						<label for='comment'>Enter javascript, css, and html:</label> \
-  						<textarea class='st-svg-code  form-control' contenteditable='true' rows='5' id='caption' required></textarea> \
+  						<textarea  class='st-svg-code  form-control' contenteditable='true' rows='5' id='caption' maxlength='" + MAX_DIAGRAM_LEN +"' required></textarea> \
 					</div> \
 					<div class='form-group'> \
 						<label for='width'>Width:</label> \
@@ -74,7 +76,7 @@ $(document).ready(function() {
 						<label for='height'>Height:</label> \
 						<input type='number' min='1' max='" + MAX_HEIGHT +"'  id='height' required> \
 						<label for='usr'>Caption:</label> \
-  						<input type='text' class='st-svg-caption' id='usr'> \
+  						<input type='text' class='st-svg-caption' id='usr' maxlength='" + MAX_CAPTION_LEN +"' > \
 					</div> \
 				</div> \
 				<button type='button' class='btn btn-primary st-preview-button'>Preview</button> \

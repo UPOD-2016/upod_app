@@ -12,7 +12,13 @@ $(document).ready(function() {
     //Class encapsulating a set of inputs for entering in a new variable and its description
     //When the inputs are changed by the user, this notifies all subscribers/observers that have
     //Registered a callback with this instance.
-    var VariableInputField = function(container){
+    
+	
+	var MAX_LABEL_LEN = 255;
+	var MAX_VARIABLE_LEN = 255;
+  
+	
+	var VariableInputField = function(container){
       var variable, description;
       var inputs;
       var updateCallbacks = [];
@@ -22,11 +28,11 @@ $(document).ready(function() {
         <br> \
         <div class='row'> \
           <div class='form-group col-xs-4'> \
-            <input type='text' name='variable' class='st-required form-control' id='usr' placeholder='Variable (Asciimath)'> \
+            <input type='text' name='variable' class='st-required form-control' id='usr' placeholder='Variable (Asciimath)' maxlength='" + MAX_VARIABLE_LEN +"'> \
           </div> \
           <span class='col-xs-1'>=</span> \
           <div class='form-group col-xs-4'> \
-            <input type='text' name='description' class='st-required form-control' id='usr' placeholder='Variable Description'> \
+            <input type='text' name='description' class='st-required form-control' id='usr' placeholder='Variable Description' maxlength='" + MAX_VARIABLE_LEN +"'> \
           </div> \
           <button type='button' class='btn btn-primary'>Remove</button> \
         </div> \
@@ -132,6 +138,7 @@ $(document).ready(function() {
 
 
   SirTrevor.Blocks.Equation = (function() {
+	
 
     return SirTrevor.Block.extend({
 
@@ -180,7 +187,7 @@ $(document).ready(function() {
             <div> \
             <div class='row'> \
               <div class='form-group col-xs-6'> \
-                <input type=\"text\" class=\"form-control st-paste-block st-label-paste\" placeholder='Equation Label'> \
+                <input type=\"text\" class=\"form-control st-paste-block st-label-paste\" placeholder='Equation Label' maxlength='" + MAX_LABEL_LEN +"'> \
               </div> \
               <div class='form-group col-xs-6'> \
                 <input type=\"text\" class=\"form-control st-paste-block st-equation-paste st-required\" placeholder='Enter Equation Here'> \
