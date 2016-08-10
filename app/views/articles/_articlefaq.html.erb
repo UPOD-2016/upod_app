@@ -58,7 +58,11 @@
         Custom html, svg, javascript, or css can be inserted into article.
         Certain functionality (alerts, form submission, etc.) will be blocked
         from executing when users view the content on the website for security
-        purposes.
+        purposes. In order to make the diagram scalable make sure you are using
+	a viewbox to define its dimensions and make sure they match the dimensions
+	of the iframe. Also make sure that you include html{overflow:hidden;} in your
+	CSS style sheet if you have one, if you don't have one then you can make one
+	just by typing <style></style> somewhere in the box.
       </p>
       <p>Code can be included:</p>
       <ul>
