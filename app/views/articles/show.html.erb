@@ -5,7 +5,7 @@
       <%= link_to "Edit", edit_article_path(@article), class: 'btn btn-default' %>
     <% end %>
   </div>
-  <h1 class="page-header"><%= @article.title %></h1>
+  <h2 class="page-header"><%= @article.title %></h2>
   <div class="col-md-12">
     <% @article.blocks.each do |block| %>
       <%= render partial: "articles/blocks/#{block.slug}", locals: {block: block.specific} %>
