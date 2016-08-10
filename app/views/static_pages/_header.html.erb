@@ -11,7 +11,7 @@
       <span class='icon-bar'></span>
       </button>
       <%= link_to root_path, class: 'navbar-brand' do %>
-      <%= image_tag 'upod_logo_color_v2.png', width: 100 %>
+        <%= image_tag 'upod_logo_color_v2.png', width: 100 %>
       <% end %>
     </div>
     <div id='navbar' class='navbar-collapse collapse'>
@@ -55,7 +55,7 @@
                          class: 'navbar-form', method: :get,
                          style: 'margin-right:auto;margin-left:auto;' } do %>
               <ul class='input-group'>
-                <%= render partial: 'static_pages/search_form_header' %>
+                <%= render partial: 'static_pages/search_form', locals: { autofocus: false } %>
               </ul>
             <% end %>
           </li>

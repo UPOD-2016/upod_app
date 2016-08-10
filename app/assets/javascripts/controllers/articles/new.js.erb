@@ -11,12 +11,11 @@
 //= require ./blocks/equation.js
 //= require ./blocks/diagram.js
 
-$(document).ready(function(){
+$(document).ready(function () {
 
   MathJax.Hub.Configured(); //Tell mathjax to start configuration
 
   SirTrevor.setDefaults({
-    // defaultType: "Text",
     iconUrl: "<%= asset_path('sir-trevor-icons.svg') %>",
     uploadUrl: Routes.images_path(),
     ajaxOptions: {
@@ -35,12 +34,12 @@ $(document).ready(function(){
   window.editor = new SirTrevor.Editor({
     el: $(".js-sir-trevor-instance").get(0),
     blockTypes: [
-  	  "Heading",
+      "Heading",
       "EquationText",
-	  "Equation",
+      "Equation",
       "Image",
       "Video",
-  	  "Diagram",
+      "Diagram",
       "Text"
     ]
   });
@@ -51,27 +50,55 @@ $(document).ready(function(){
   //default implementation of the text block.
   //To get around this, the default text blocks are still rendered
   //but users cannot type in them, only select another type of block
-   window.editor.mediator.on('block:create',function(){
-	 //get the contenteditable element from the default text block
-	 var $default_text_blocks = $('body').find("[data-type='text'] > .st-block__inner > .st-text-block");
-	 $default_text_blocks.blur();
-	 $default_text_blocks.removeAttr("contenteditable");
-   });
-   //Remove the icon for the default text block from the list of all blocks to click on
-   $(SirTrevor.config.instances[0].blockControls.el.children).find("[data-type='text']").remove();
+  window.editor.mediator.on('block:create', function () {
+    //get the contenteditable element from the default text block
+    var $default_text_blocks = $('body').find("[data-type='text'] > .st-block__inner > .st-text-block");
+    $default_text_blocks.blur();
+    $default_text_blocks.removeAttr("contenteditable");
+  });
+  //Remove the icon for the default text block from the list of all blocks to click on
+  $(SirTrevor.config.instances[0].blockControls.el.children).find("[data-type='text']").remove();
 
+  /*
+   Modified version of http://stackoverflow.com/a/7317311 to support Sir Trevor
+   */
+  window.onload = function () {
+    window.addEventListener("beforeunload", function (e) {
+      // 1. Find the number of blocks that a user created
+      var numOfBlocksCreated = window.editor.blockManager.blocks.length;
+      // 2. Store the submit button of Sir Trevor to compare later
+      var sirTrevorSubmitButton = $('.sir-trevor-form').find("input[type='submit']");
+      // 3. Now the important one - this is the button that triggered the page reload.
+      //    Note: this may also be a page refresh or close. If it is either of those,
+      //    then the activeElement would be null.
+      var sourceTarget = e.srcElement.activeElement;
+      // 4. If the submit button triggered this function or we still haven't created a
+      //    a block for our article, let's not show the warning message that they'll
+      //    lose data.
+      if (sourceTarget === sirTrevorSubmitButton[0] || numOfBlocksCreated === 0) {
+        return undefined;
+      }
 
-  $('.sir-trevor-form').submit(function(e) {
+      var confirmationMessage = 'It looks like you have been editing something. ' +
+        'If you leave before clicking the Save Article button, your changes will be lost.';
+
+      // 5. Show the confirmation message
+      (e || window.event).returnValue = confirmationMessage; //IE
+      return confirmationMessage; //Webkit, Safari, Chrome etc.
+    });
+  };
+
+  $('.sir-trevor-form').submit(function (e) {
     //1. Stop the default submission from occuring. This is so we can inject
     //the necessary metadata information into the form.
     e.preventDefault();
 
-  	//2. Only proceed if there are no errors
-  	//which occurs when no custom validators call setError
-  	//and all fields of the st-required class are not empty
-  	if (SirTrevor.onBeforeSubmit() > 0){
-  		return;
-  	}
+    //2. Only proceed if there are no errors
+    //which occurs when no custom validators call setError
+    //and all fields of the st-required class are not empty
+    if (SirTrevor.onBeforeSubmit() > 0) {
+      return;
+    }
 
     //2b. Check if the title is submitted
     var title = $('#title').val();
@@ -105,7 +132,7 @@ $(document).ready(function(){
 
     //8. Loop through them and return an array of them (note: they are stored as strings,
     //   and since Rails doesn't care, we don't care for now)
-    json.meta.subcategories = $.map($selectedSubcategories, function(el) {
+    json.meta.subcategories = $.map($selectedSubcategories, function (el) {
       return $(el).val();
     });
 
@@ -113,8 +140,8 @@ $(document).ready(function(){
     //   with it. This is what's submitted to the server.
     $textarea.val(JSON.stringify(json));
 
-	//10. Resubmit to the server
-	//Prevent an infinite loop by submitting through javascript, not jQuery
-	this.submit();
+    //10. Resubmit to the server
+    //Prevent an infinite loop by submitting through javascript, not jQuery
+    this.submit();
   });
 });

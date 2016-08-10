@@ -35,17 +35,17 @@ class Article < ActiveRecord::Base
   # article.create_equation_block and so on and so forth.
   include Blockable
   include SirTrevorable
+  extend FriendlyId
 
   searchkick \
     searchable:   %i(title body name label),
     match:        :word_start,
     callbacks:    :async
 
-    extend FriendlyId
-    friendly_id :slug_candidates, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
 
-# Try building a slug based on the following fields in
-# increasing order of specificity.
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
   def slug_candidates
     [
       :title,
@@ -58,35 +58,35 @@ class Article < ActiveRecord::Base
   # @param block_json [json] the sir trevor form data representing each block
   def change_blocks(block_json)
 
-	#Removal of old blocks is rolled back on errors
-	Article.transaction do
-		blocks.destroy_all
-		block_json.each do |block|
-		  create_block_from_sir_trevor(block)
-		end
-	end
+    #Removal of old blocks is rolled back on errors
+    Article.transaction do
+      blocks.destroy_all
+      block_json.each do |block|
+        create_block_from_sir_trevor(block)
+      end
+    end
   end
 
   # Replaces old subcategories associated with this article with new ones
   # @param subcategory_ids [int[]] a hash of the subcategory_ids to associate
   # with this article
   def change_subcategories(subcategory_ids)
-    
-	Article.transaction do
-		#Removal of old categories are rolled back on errors
-		categorizations.destroy_all
-		subcategory_ids.each do |subcategory_id|
-		  categorizations.create(subcategory_id: subcategory_id)
-		end
-	end
+
+    Article.transaction do
+      #Removal of old categories are rolled back on errors
+      categorizations.destroy_all
+      subcategory_ids.each do |subcategory_id|
+        categorizations.create(subcategory_id: subcategory_id)
+      end
+    end
   end
 
   # Returns the first n characters from the first text block in the article.
   def excerpt(length = 255)
     text_blocks = blocks.map { |b| b.specific.body if b.specific.respond_to?(:body) }
     ActionView::Base.full_sanitizer
-                    .sanitize(text_blocks.try(:first)
-                                                .try(:first, length))
+    .sanitize(text_blocks.try(:first)
+              .try(:first, length))
   end
 
   # Returns the data that will be flattened and indexed by the elastic search
@@ -101,7 +101,7 @@ class Article < ActiveRecord::Base
       name:         blocks.map { |b| b.specific.name if b.specific.respond_to?(:name) },
       body:         blocks.map { |b| b.specific.body if b.specific.respond_to?(:body) },
       label:        blocks.map { |b| b.specific.label if b.specific.respond_to?(:label) },
-      category:     subcategories.map(&:category_id)
+      category:     subcategories.pluck(:category_id)
     }.as_json
   end
 

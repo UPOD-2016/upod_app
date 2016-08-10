@@ -36,8 +36,7 @@
 .mega-dropdown-menu > li ul > li > a:hover,
 .mega-dropdown-menu > li ul > li > a:focus {
   text-decoration: none;
-  color: #444;
-  background-color: #f5f5f5;
+  color: #fff;
 }
 .mega-dropdown-menu .dropdown-header {
   color: $navbar-inverse-link-color;
@@ -384,7 +383,7 @@ a[aria-expanded=false] .glyphicon-chevron-down {
   max-width:854px;	/* sets the maximum height and width of the video container to be */
   max-height:480px;	/* 854x480 which is youtube's dimensions for video frame */
   margin-right:auto;
-  margin-left:auto;	
+  margin-left:auto;
   position:relative;
   padding-bottom:56.25%; /* to achieve 16:9 dimension ratio for any device with any resolution */
   overflow:hidden;
@@ -398,7 +397,7 @@ a[aria-expanded=false] .glyphicon-chevron-down {
   height:100%;
   max-width:854px;	/* sets the maximum height and width of the video to be */
   max-height:480px;	/* 854x480 which is youtube's dimensions for video frame */
-  
+
 }
 /* -------------- for video svg diagrams ------- */
 .intrinsic-container {
@@ -407,10 +406,10 @@ a[aria-expanded=false] .glyphicon-chevron-down {
   overflow: hidden;
   padding-bottom:56.25%; /* 16x9 Aspect Ratio */
 }
- 
 
 
- 
+
+
 .intrinsic-container iframe {
   position: absolute;
   top:0;

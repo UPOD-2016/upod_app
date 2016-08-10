@@ -9,7 +9,7 @@
     <%= form_tag articles_path, method: :get, role: 'search' do %>
       <div class='form-group' style='display:inline;'>
         <div class='input-group'>
-          <%= render partial: 'static_pages/search_form' %>
+          <%= render partial: 'static_pages/search_form', locals: { autofocus: true } %>
         </div> <!-- .input-group -->
       </div> <!-- .form-group -->
     <% end %>

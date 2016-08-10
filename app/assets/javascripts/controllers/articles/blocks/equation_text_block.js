@@ -19,6 +19,7 @@ $(document).ready(function() {
             icon_name: 'text',
             toolbarEnabled: true,
 			textable: false,
+      formattable: true,
             paste_options: { html: null },
 
 			//Extracts and sets data that will be sent to the server
@@ -80,7 +81,7 @@ $(document).ready(function() {
 						//http://stackoverflow.com/questions/6023307/dealing-with-line-breaks-on-contenteditable-div
 						var html_with_br = $this.html().replace(/<div>/gi,'<br>').replace(/<\/div>/gi,'');
 						$this.html(html_with_br);
-					
+
 						//update the current html associated with this element element
 						$this.data('before', html_with_br);
 

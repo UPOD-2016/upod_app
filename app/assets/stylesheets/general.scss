@@ -288,29 +288,6 @@ body {
   font-family: 'Proxima Nova';
   font-weight: 700;
 }
-.st-block[data-type="quote"] {
-  position: relative;
-  &:before {
-    background: url('../icons/quote-open.svg') no-repeat;
-    width: 54px;
-    height: 49px;
-    position: absolute;
-    top: 0.5em;
-    content: "";
-    display: block;
-    left: 56px;
-  }
-  &:after {
-    background: url('../icons/quote-close.svg') no-repeat;
-    width: 54px;
-    height: 49px;
-    position: absolute;
-    bottom: 7.6875em;
-    content: "";
-    display: block;
-    right: 56px;
-  }
-}
 /************************************************************
 *   CATEGORIES CHECKBOXES
 *************************************************************/
